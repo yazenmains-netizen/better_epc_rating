@@ -1435,14 +1435,33 @@
   <script>
     var WEBHOOK = 'https://hook.eu1.make.com/mjfw6yehnsuk7i66cx82w7dd3azr4xqh';
 
+    var FIELD_MAP = {
+      h_name:     'first_name',
+      h_surname:  'last_name',
+      h_email:    'email',
+      h_phone:    'phone',
+      h_postcode: 'postcode',
+      h_address:  'address',
+      f_name:     'name',
+      f_email:    'email',
+      f_phone:    'phone',
+      f_postcode: 'postcode',
+      f_address:  'address'
+    };
+
     function handleSubmit(e, formId, successId) {
       e.preventDefault();
       var form = document.getElementById(formId);
       var btn  = form.querySelector('button[type="submit"]');
-      var data = {};
+      var raw  = {};
 
       form.querySelectorAll('input, select').forEach(function(el) {
-        if (el.id) data[el.id] = el.value;
+        if (el.id) raw[el.id] = el.value;
+      });
+
+      var payload = { source: formId };
+      Object.keys(raw).forEach(function(key) {
+        payload[FIELD_MAP[key] || key] = raw[key];
       });
 
       btn.disabled = true;
@@ -1450,15 +1469,14 @@
 
       fetch(WEBHOOK, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
       })
       .then(function() {
         form.style.display = 'none';
         document.getElementById(successId).classList.add('show');
       })
       .catch(function() {
-        // Still show success to user even if there's a network blip
         form.style.display = 'none';
         document.getElementById(successId).classList.add('show');
       });
