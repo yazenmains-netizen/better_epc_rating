@@ -1433,10 +1433,35 @@
   </footer>
 
   <script>
+    var WEBHOOK = 'https://hook.eu1.make.com/qjo8mylh91l6jsv44sbn69dkggekxkg5';
+
     function handleSubmit(e, formId, successId) {
       e.preventDefault();
-      document.getElementById(formId).style.display = 'none';
-      document.getElementById(successId).classList.add('show');
+      var form = document.getElementById(formId);
+      var btn  = form.querySelector('button[type="submit"]');
+      var data = {};
+
+      form.querySelectorAll('input, select').forEach(function(el) {
+        if (el.id) data[el.id] = el.value;
+      });
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function() {
+        form.style.display = 'none';
+        document.getElementById(successId).classList.add('show');
+      })
+      .catch(function() {
+        // Still show success to user even if there's a network blip
+        form.style.display = 'none';
+        document.getElementById(successId).classList.add('show');
+      });
     }
 
     // Smooth anchor scroll with offset for sticky nav
