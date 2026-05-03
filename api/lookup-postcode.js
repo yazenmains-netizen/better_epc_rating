@@ -11,7 +11,7 @@ module.exports = function handler(req, res) {
   const path = '/v1/postcodes/' + encodeURIComponent(postcode) + '?api_key=' + apiKey;
 
   const request = https.get(
-    { hostname: 'api.idealpostcodes.co.uk', path: path, headers: { 'Accept': 'application/json' } },
+    { hostname: 'api.ideal-postcodes.co.uk', path: path, headers: { 'Accept': 'application/json' } },
     function (upstream) {
       let body = '';
       upstream.on('data', function (chunk) { body += chunk; });
