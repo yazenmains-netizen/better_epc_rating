@@ -283,6 +283,50 @@
     }
     .form-group input::placeholder { color: #9ca3af; }
 
+    /* ─── POSTCODE LOOKUP ─── */
+    .postcode-input-wrap {
+      display: flex;
+      gap: 8px;
+    }
+    .postcode-input-wrap input {
+      flex: 1;
+      min-width: 0;
+    }
+    .lookup-btn {
+      background: var(--green-mid);
+      color: white;
+      border: none;
+      padding: 11px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.18s;
+      flex-shrink: 0;
+    }
+    .lookup-btn:hover { background: var(--green-dark); }
+    .lookup-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .address-select {
+      width: 100%;
+      margin-top: 8px;
+      padding: 11px 14px;
+      border: 1.5px solid var(--green-border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--green-pale);
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: auto;
+      appearance: auto;
+    }
+    .address-select:focus {
+      border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(46,125,50,0.12);
+    }
+
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1010,11 +1054,17 @@
           </div>
           <div class="form-group">
             <label for="h_postcode">Property Postcode</label>
-            <input type="text" id="h_postcode" placeholder="SW1A 1AA" required autocomplete="postal-code" />
+            <div class="postcode-input-wrap">
+              <input type="text" id="h_postcode" placeholder="SW1A 1AA" required autocomplete="postal-code" />
+              <button type="button" class="lookup-btn" onclick="lookupPostcode('h')">Find Address</button>
+            </div>
+            <select id="h_address_select" class="address-select" style="display:none;" onchange="selectAddress('h')">
+              <option value="">— Select your address —</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="h_address">Property Address</label>
-            <input type="text" id="h_address" placeholder="123 High Street, London" required autocomplete="street-address" />
+            <input type="text" id="h_address" placeholder="Auto-filled above, or type manually" autocomplete="street-address" />
           </div>
           <button type="submit" class="submit-btn">Get My Free EPC Roadmap →</button>
         </form>
@@ -1405,11 +1455,17 @@
         </div>
         <div class="form-group">
           <label for="f_postcode">Property Postcode</label>
-          <input type="text" id="f_postcode" placeholder="SW1A 1AA" required autocomplete="postal-code" />
+          <div class="postcode-input-wrap">
+            <input type="text" id="f_postcode" placeholder="SW1A 1AA" required autocomplete="postal-code" />
+            <button type="button" class="lookup-btn" onclick="lookupPostcode('f')">Find Address</button>
+          </div>
+          <select id="f_address_select" class="address-select" style="display:none;" onchange="selectAddress('f')">
+            <option value="">— Select your address —</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="f_address">Property Address</label>
-          <input type="text" id="f_address" placeholder="123 High Street, London" required autocomplete="street-address" />
+          <input type="text" id="f_address" placeholder="Auto-filled above, or type manually" autocomplete="street-address" />
         </div>
         <button type="submit" class="submit-btn">Get My Free EPC Roadmap →</button>
       </form>
@@ -1433,7 +1489,52 @@
   </footer>
 
   <script>
-    var WEBHOOK = 'https://hook.eu1.make.com/mjfw6yehnsuk7i66cx82w7dd3azr4xqh';
+    var WEBHOOK = 'https://hook.eu1.make.com/nb37srgffralnes3xc4oyu7h5qkluf8l';
+
+    var IP_KEY = 'ak_mge4qvjb2ahpDnl87gS7eCwRB3eiX';
+    var addressCache = {};
+
+    function lookupPostcode(prefix) {
+      var postcode = document.getElementById(prefix + '_postcode').value.trim();
+      if (!postcode) { alert('Please enter a postcode first.'); return; }
+      var btn = document.getElementById(prefix + '_postcode').closest('.postcode-input-wrap').querySelector('.lookup-btn');
+      btn.disabled = true;
+      btn.textContent = 'Searching…';
+      fetch('https://api.idealpostcodes.co.uk/v1/postcodes/' + encodeURIComponent(postcode) + '?api_key=' + IP_KEY)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          btn.disabled = false;
+          btn.textContent = 'Find Address';
+          if (data.code === 2000 && data.result && data.result.length) {
+            addressCache[prefix] = data.result;
+            var sel = document.getElementById(prefix + '_address_select');
+            sel.innerHTML = '<option value="">— Select your address —</option>';
+            data.result.forEach(function(a, i) {
+              var opt = document.createElement('option');
+              opt.value = i;
+              opt.textContent = [a.line_1, a.line_2, a.post_town, a.postcode].filter(Boolean).join(', ');
+              sel.appendChild(opt);
+            });
+            sel.style.display = 'block';
+          } else {
+            alert('No addresses found for "' + postcode + '". Please type your address manually.');
+          }
+        })
+        .catch(function() {
+          btn.disabled = false;
+          btn.textContent = 'Find Address';
+          alert('Address lookup failed. Please enter your address manually.');
+        });
+    }
+
+    function selectAddress(prefix) {
+      var sel = document.getElementById(prefix + '_address_select');
+      var idx = parseInt(sel.value);
+      if (isNaN(idx)) return;
+      var a = addressCache[prefix][idx];
+      document.getElementById(prefix + '_address').value = [a.line_1, a.line_2, a.post_town].filter(Boolean).join(', ');
+      document.getElementById(prefix + '_postcode').value = a.postcode || '';
+    }
 
     var FIELD_MAP = {
       h_name:     'first_name',
