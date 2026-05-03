@@ -7,7 +7,7 @@ module.exports = function handler(req, res) {
   const postcode = (req.query.postcode || '').trim();
   if (!postcode) return res.status(400).json({ error: 'Postcode required' });
 
-  const apiKey = process.env.IDEALPOSTCODES_API_KEY;
+  const apiKey = (process.env.IDEALPOSTCODES_API_KEY || '').trim();
   const path = '/v1/postcodes/' + encodeURIComponent(postcode) + '?api_key=' + apiKey;
 
   const request = https.get(
