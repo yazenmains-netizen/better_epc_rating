@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Your Free EPC Roadmap | Better EPC Rating</title>
+  <meta name="description" content="Find out exactly what your rental property needs to reach EPC C by 2030. Free expert consultation — fully remote, no home visit needed." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:   #16512a;
+      --green-dark:   #1d6b34;
+      --green-mid:    #2e7d32;
+      --green-light:  #4caf50;
+      --green-pale:   #edf7ee;
+      --green-border: #c5e8c7;
+      --cta:          #e65100;
+      --cta-hover:    #bf360c;
+      --amber:        #ffd54f;
+      --text:         #111827;
+      --text-muted:   #6b7280;
+      --border:       #e5e7eb;
+      --white:        #ffffff;
+      --bg-off:       #f9fafb;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg-off);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ── HEADER ── */
+    .header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 90px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+    .header img { height: 72px; }
+
+    /* ── HERO STRIP ── */
+    .hero-strip {
+      background: linear-gradient(135deg, #16512a 0%, #2e7d32 100%);
+      color: white;
+      text-align: center;
+      padding: 40px 24px 36px;
+    }
+    .urgency-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      background: #ff6b35;
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(1.3); }
+    }
+    .hero-strip h1 {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.3px;
+      margin-bottom: 12px;
+    }
+    .hero-strip h1 em { font-style: normal; color: var(--amber); }
+    .hero-strip p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.88);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── TRUST PILLS ── */
+    .trust-bar {
+      background: var(--green-pale);
+      border-bottom: 1px solid var(--green-border);
+      padding: 12px 24px;
+    }
+    .trust-bar-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 32px;
+    }
+    .trust-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--green-deep);
+    }
+    .check-circle {
+      width: 18px; height: 18px;
+      background: var(--green-mid);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── LEFT PANEL ── */
+    .left-panel {}
+
+    .section-label {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green-deep);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .left-panel h2 {
+      font-size: clamp(20px, 2.8vw, 28px);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.2px;
+      margin-bottom: 10px;
+    }
+    .left-panel h2 em { font-style: normal; color: var(--green-mid); }
+    .left-panel > p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    /* ── REVIEWS ── */
+    .reviews-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+
+    .review-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .review-card:hover {
+      border-color: var(--green-border);
+      box-shadow: 0 4px 16px rgba(46,125,50,0.08);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .reviewer-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .reviewer-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .reviewer-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .stars {
+      display: flex;
+      gap: 2px;
+    }
+    .star {
+      color: #f59e0b;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .review-text {
+      font-size: 13.5px;
+      color: #374151;
+      line-height: 1.6;
+    }
+    .review-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--green-mid);
+      font-weight: 600;
+    }
+
+    /* ── AGGREGATE STARS ── */
+    .aggregate-rating {
+      background: white;
+      border: 1.5px solid var(--green-border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .agg-score {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--green-deep);
+      line-height: 1;
+    }
+    .agg-right {}
+    .agg-stars { display: flex; gap: 3px; margin-bottom: 3px; }
+    .agg-stars .star { font-size: 20px; }
+    .agg-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── BENEFITS LIST ── */
+    .benefits-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+    .benefit-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .benefit-check {
+      width: 20px; height: 20px;
+      background: var(--green-mid);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .benefit-item strong { color: var(--text); }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: white;
+      border-radius: 18px;
+      padding: 30px 26px 24px;
+      box-shadow: 0 20px 56px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 24px;
+    }
+    .form-card-badge {
+      display: inline-block;
+      background: var(--cta);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 9px;
+      margin-bottom: 12px;
+    }
+    .form-card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--green-dark);
+      margin-bottom: 3px;
+      line-height: 1.2;
+    }
+    .form-card-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #374151;
+      margin-bottom: 4px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-family: inherit;
+      color: var(--text);
+      background: white;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+    }
+    .form-group input::placeholder { color: #9ca3af; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--cta);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.1s, box-shadow 0.18s;
+      margin-top: 4px;
+      letter-spacing: 0.2px;
+      box-shadow: 0 4px 14px rgba(230,81,0,0.35);
+    }
+    .submit-btn:hover { background: var(--cta-hover); box-shadow: 0 6px 20px rgba(230,81,0,0.45); }
+    .submit-btn:active { transform: scale(0.99); }
+
+    .form-privacy {
+      text-align: center;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-state { display: none; text-align: center; padding: 16px 0 8px; }
+    .success-state.show { display: block; }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: var(--green-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .success-icon svg { width: 30px; height: 30px; }
+    .success-state h4 { font-size: 19px; font-weight: 800; color: var(--green-dark); margin-bottom: 6px; }
+    .success-state p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d1117;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .footer-logo img { height: 54px; opacity: 0.92; }
+    footer p {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+    footer a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+    }
+    footer a:hover { color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .main { grid-template-columns: 1fr; gap: 32px; }
+      .form-card { position: static; }
+    }
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .hero-strip { padding: 30px 16px 26px; }
+      .main { padding: 28px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <img src="better-logo.png" alt="Better EPC Rating" />
+  </header>
+
+  <!-- ── HERO STRIP ── -->
+  <div class="hero-strip">
+    <div class="urgency-badge">
+      <span class="badge-dot"></span>
+      2030 EPC Deadline — Act Now
+    </div>
+    <h1>Is Your Rental Property<br/>Ready for the <em>EPC C Deadline?</em></h1>
+    <p>Get a free, expert consultation to find out exactly what your property needs — and the cheapest way to get there.</p>
+  </div>
+
+  <!-- ── TRUST PILLS ── -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <div class="trust-pill">
+        <div class="check-circle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Fully Remote — No Home Visit
+      </div>
+      <div class="trust-pill">
+        <div class="check-circle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Fixed, Transparent Pricing
+      </div>
+      <div class="trust-pill">
+        <div class="check-circle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        No Unnecessary Upgrades
+      </div>
+      <div class="trust-pill">
+        <div class="check-circle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Response Within 1 Business Day
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- LEFT: Trust + Reviews -->
+    <div class="left-panel">
+
+      <span class="section-label">Trusted by UK Landlords</span>
+      <h2>We Help Landlords Reach <em>EPC C</em> — Without Wasting a Penny</h2>
+      <p>Our data-driven EPC Roadmap shows you exactly which upgrades your property needs, in the right order, at the lowest possible cost. No guesswork. No wasted spend.</p>
+
+      <!-- Aggregate Rating -->
+      <div class="aggregate-rating">
+        <div class="agg-score">5.0</div>
+        <div class="agg-right">
+          <div class="agg-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <div class="agg-label">Based on verified landlord reviews</div>
+        </div>
+      </div>
+
+      <p class="reviews-title">What our clients say</p>
+
+      <!-- Review 1 -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background: #2e7d32;">JM</div>
+            <div>
+              <div class="reviewer-name">James M.</div>
+              <div class="reviewer-tag">Landlord, 3 Properties</div>
+            </div>
+          </div>
+          <div class="stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="review-text">"I'd been putting off dealing with the EPC deadline for months. Better EPC Rating made it completely painless — they told me exactly what I needed to do and saved me from spending thousands on the wrong upgrades."</p>
+        <div class="review-verified">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Verified Review
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background: #1565c0;">SP</div>
+            <div>
+              <div class="reviewer-name">Sarah P.</div>
+              <div class="reviewer-tag">Portfolio Investor, 7 Properties</div>
+            </div>
+          </div>
+          <div class="stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="review-text">"The roadmap report was incredibly clear. We could see exactly which improvements to prioritise across our portfolio to reach compliance as cost-effectively as possible. The remote process was seamless."</p>
+        <div class="review-verified">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Verified Review
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background: #c62828;">RT</div>
+            <div>
+              <div class="reviewer-name">Richard T.</div>
+              <div class="reviewer-tag">Private Landlord, London</div>
+            </div>
+          </div>
+          <div class="stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="review-text">"Thought I'd need a full boiler replacement. The EPC Roadmap showed I only needed loft insulation and a smart thermostat to hit EPC C. Saved me over £4,000 compared to what a contractor had quoted."</p>
+        <div class="review-verified">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Verified Review
+        </div>
+      </div>
+
+      <!-- Benefits List -->
+      <ul class="benefits-list">
+        <li class="benefit-item">
+          <div class="benefit-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span><strong>Bespoke to your property</strong> — not generic advice, a tailored plan for your exact address</span>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span><strong>See the SAP points impact</strong> of every measure before spending a penny</span>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span><strong>Final compliant EPC issued remotely</strong> — just send us photos once works are done</span>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span><strong>Works for any property type</strong> — houses, flats, terraces, HMOs and more</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT: Qualifying Form -->
+    <div class="form-card" id="qualify-form">
+      <div class="form-card-badge">Free Consultation</div>
+      <h3>Get Your Free EPC Roadmap</h3>
+      <p class="form-card-sub">Fill in your details and we'll be in touch within 1 business day.</p>
+
+      <form id="qualifyForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="q_firstname">First Name</label>
+            <input type="text" id="q_firstname" placeholder="John" required autocomplete="given-name" />
+          </div>
+          <div class="form-group">
+            <label for="q_lastname">Last Name</label>
+            <input type="text" id="q_lastname" placeholder="Smith" required autocomplete="family-name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="q_email">Email Address</label>
+          <input type="email" id="q_email" placeholder="john@example.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="q_phone">Phone Number</label>
+          <input type="tel" id="q_phone" placeholder="07700 900 000" required autocomplete="tel" />
+        </div>
+        <div class="form-group">
+          <label for="q_postcode">Property Postcode</label>
+          <input type="text" id="q_postcode" placeholder="SW1A 1AA" required autocomplete="postal-code" />
+        </div>
+        <div class="form-group">
+          <label for="q_address">Property Address</label>
+          <input type="text" id="q_address" placeholder="123 High Street, London" required autocomplete="street-address" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="q_epc">Current EPC Rating</label>
+            <select id="q_epc" required>
+              <option value="" disabled selected>Select rating</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              <option value="G">G</option>
+              <option value="unknown">Don't know</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="q_properties">No. of Properties</label>
+            <select id="q_properties" required>
+              <option value="" disabled selected>Select</option>
+              <option value="1">1</option>
+              <option value="2-5">2–5</option>
+              <option value="6-10">6–10</option>
+              <option value="10+">10+</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Get My Free EPC Roadmap →</button>
+      </form>
+
+      <div class="success-state" id="qualifySuccess">
+        <div class="success-icon">
+          <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="15" cy="15" r="15" fill="#2e7d32"/>
+            <path d="M8 15.5l5 5 9-9" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h4>You're all set!</h4>
+        <p>A member of our team will be in touch within 1 business day to discuss your EPC Roadmap.</p>
+      </div>
+
+      <p class="form-privacy">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:3px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        100% secure. No spam. We'll never share your details.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">
+      <img src="better-logo.png" alt="Better EPC Rating" />
+    </div>
+    <p>© 2025 Better EPC Rating &nbsp;|&nbsp; Energy Efficiency Consultancy</p>
+    <p style="margin-top:6px;"><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a> &nbsp;·&nbsp; <a href="https://www.betterepcrating.co.uk">betterepcrating.co.uk</a></p>
+  </footer>
+
+  <script>
+    var WEBHOOK = 'https://hook.eu1.make.com/mjfw6yehnsuk7i66cx82w7dd3azr4xqh';
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      var btn = document.querySelector('#qualifyForm button[type="submit"]');
+
+      var payload = {
+        source:      'qualify_page',
+        first_name:  document.getElementById('q_firstname').value,
+        last_name:   document.getElementById('q_lastname').value,
+        email:       document.getElementById('q_email').value,
+        phone:       document.getElementById('q_phone').value,
+        postcode:    document.getElementById('q_postcode').value,
+        address:     document.getElementById('q_address').value,
+        epc_rating:  document.getElementById('q_epc').value,
+        num_properties: document.getElementById('q_properties').value
+      };
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      })
+      .then(function() { showSuccess(); })
+      .catch(function() { showSuccess(); });
+    }
+
+    function showSuccess() {
+      document.getElementById('qualifyForm').style.display = 'none';
+      document.getElementById('qualifySuccess').classList.add('show');
+    }
+  </script>
+
+</body>
+</html>
