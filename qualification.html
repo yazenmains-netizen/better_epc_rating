@@ -403,6 +403,41 @@
       gap: 10px;
     }
 
+    .postcode-row {
+      display: flex;
+      gap: 8px;
+    }
+    .postcode-row input { flex: 1; }
+    .find-btn {
+      background: var(--green-mid);
+      color: white;
+      border: none;
+      padding: 11px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.18s;
+      font-family: inherit;
+    }
+    .find-btn:hover { background: var(--green-dark); }
+    .find-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+    .manual-link {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11.5px;
+      color: var(--green-mid);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .addr-error {
+      font-size: 12px;
+      color: #dc2626;
+      margin-top: 4px;
+      display: none;
+    }
+
     .submit-btn {
       width: 100%;
       background: var(--cta);
@@ -527,11 +562,21 @@
         </div>
         <div class="form-group">
           <label for="q_postcode">Property Postcode</label>
-          <input type="text" id="q_postcode" placeholder="SW1A 1AA" required autocomplete="postal-code" />
+          <div class="postcode-row">
+            <input type="text" id="q_postcode" placeholder="SW1A 1AA" autocomplete="postal-code" style="text-transform:uppercase" />
+            <button type="button" id="findAddressBtn" class="find-btn" onclick="lookupPostcode()">Find Address</button>
+          </div>
+          <div class="addr-error" id="addrError">Postcode not found — please enter your address manually below.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="addressSelectGroup" style="display:none">
+          <label for="q_address_select">Select Your Address</label>
+          <select id="q_address_select" onchange="selectAddress(this.value)">
+            <option value="">— Select your address —</option>
+          </select>
+        </div>
+        <div class="form-group" id="addressManualGroup" style="display:none">
           <label for="q_address">Property Address</label>
-          <input type="text" id="q_address" placeholder="123 High Street, London" required autocomplete="street-address" />
+          <input type="text" id="q_address" placeholder="123 High Street, London" autocomplete="street-address" />
         </div>
         <button type="submit" class="submit-btn">Get My Free EPC Roadmap →</button>
       </form>
@@ -702,10 +747,87 @@
 
   <script>
     var WEBHOOK = 'https://hook.eu1.make.com/on2abjzvds0gb4hy1wlouuripsg7cnm9';
+    var GETADDRESS_KEY = 'PASTE_YOUR_API_KEY_HERE';
+
+    function lookupPostcode() {
+      var postcode = document.getElementById('q_postcode').value.trim().replace(/\s+/g, '');
+      var btn = document.getElementById('findAddressBtn');
+      var errorEl = document.getElementById('addrError');
+      errorEl.style.display = 'none';
+
+      if (postcode.length < 5) {
+        errorEl.textContent = 'Please enter a valid postcode.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Searching…';
+
+      fetch('https://api.getaddress.io/find/' + encodeURIComponent(postcode) + '?api-key=' + GETADDRESS_KEY)
+        .then(function(r) {
+          if (!r.ok) throw new Error('not found');
+          return r.json();
+        })
+        .then(function(data) {
+          var select = document.getElementById('q_address_select');
+          select.innerHTML = '<option value="">— Select your address —</option>';
+
+          data.addresses.forEach(function(addr) {
+            var parts = addr.split(',').map(function(p){ return p.trim(); }).filter(Boolean);
+            var label = parts.join(', ');
+            var opt = document.createElement('option');
+            opt.value = label;
+            opt.textContent = label;
+            select.appendChild(opt);
+          });
+
+          var manualOpt = document.createElement('option');
+          manualOpt.value = '__manual__';
+          manualOpt.textContent = 'My address isn\'t listed — enter manually';
+          select.appendChild(manualOpt);
+
+          document.getElementById('addressSelectGroup').style.display = 'block';
+          document.getElementById('addressManualGroup').style.display = 'none';
+          btn.disabled = false;
+          btn.textContent = 'Find Address';
+        })
+        .catch(function() {
+          document.getElementById('addressSelectGroup').style.display = 'none';
+          document.getElementById('addressManualGroup').style.display = 'block';
+          errorEl.textContent = 'Postcode not found — please enter your address manually below.';
+          errorEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Find Address';
+        });
+    }
+
+    function selectAddress(val) {
+      if (!val) return;
+      var manualGroup = document.getElementById('addressManualGroup');
+      manualGroup.style.display = 'block';
+      if (val === '__manual__') {
+        document.getElementById('q_address').value = '';
+      } else {
+        document.getElementById('q_address').value = val;
+      }
+    }
+
+    document.getElementById('q_postcode').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); lookupPostcode(); }
+    });
 
     function handleSubmit(e) {
       e.preventDefault();
       var btn = document.querySelector('#qualifyForm button[type="submit"]');
+      var address = document.getElementById('q_address') ? document.getElementById('q_address').value : '';
+      var postcode = document.getElementById('q_postcode').value;
+
+      if (!address) {
+        document.getElementById('addrError').textContent = 'Please find and select your address.';
+        document.getElementById('addrError').style.display = 'block';
+        return;
+      }
 
       var payload = {
         source:      'qualify_page',
@@ -713,8 +835,8 @@
         last_name:   document.getElementById('q_lastname').value,
         email:       document.getElementById('q_email').value,
         phone:       document.getElementById('q_phone').value,
-        postcode:    document.getElementById('q_postcode').value,
-        address:     document.getElementById('q_address').value
+        postcode:    postcode,
+        address:     address
       };
 
       btn.disabled = true;
