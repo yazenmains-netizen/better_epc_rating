@@ -805,11 +805,12 @@
     function selectAddress(val) {
       if (!val) return;
       var manualGroup = document.getElementById('addressManualGroup');
-      manualGroup.style.display = 'block';
       if (val === '__manual__') {
         document.getElementById('q_address').value = '';
+        manualGroup.style.display = 'block';
       } else {
         document.getElementById('q_address').value = val;
+        manualGroup.style.display = 'none';
       }
     }
 
