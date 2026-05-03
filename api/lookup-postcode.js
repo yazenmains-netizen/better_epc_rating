@@ -1,18 +1,33 @@
-export default async function handler(req, res) {
+const https = require('https');
+
+module.exports = function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
-  const { postcode } = req.query;
+  const postcode = (req.query.postcode || '').trim();
   if (!postcode) return res.status(400).json({ error: 'Postcode required' });
 
   const apiKey = process.env.IDEALPOSTCODES_API_KEY;
-  const url = `https://api.idealpostcodes.co.uk/v1/postcodes/${encodeURIComponent(postcode)}?api_key=${apiKey}`;
+  const path = '/v1/postcodes/' + encodeURIComponent(postcode) + '?api_key=' + apiKey;
 
-  try {
-    const upstream = await fetch(url);
-    const data = await upstream.json();
-    return res.status(upstream.status).json(data);
-  } catch {
-    return res.status(500).json({ code: 5000, message: 'Lookup failed' });
-  }
-}
+  const request = https.get(
+    { hostname: 'api.idealpostcodes.co.uk', path: path, headers: { 'Accept': 'application/json' } },
+    function (upstream) {
+      let body = '';
+      upstream.on('data', function (chunk) { body += chunk; });
+      upstream.on('end', function () {
+        try {
+          res.status(upstream.statusCode).json(JSON.parse(body));
+        } catch {
+          res.status(502).json({ code: 5000, message: 'Bad upstream response' });
+        }
+      });
+    }
+  );
+
+  request.on('error', function (err) {
+    res.status(500).json({ code: 5000, message: err.message });
+  });
+
+  request.end();
+};
