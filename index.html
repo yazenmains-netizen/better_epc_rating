@@ -1491,7 +1491,6 @@
   <script>
     var WEBHOOK = 'https://hook.eu1.make.com/nb37srgffralnes3xc4oyu7h5qkluf8l';
 
-    var IP_KEY = 'ak_mge4qvjb2ahpDnl87gS7eCwRB3eiX';
     var addressCache = {};
 
     function lookupPostcode(prefix) {
@@ -1500,7 +1499,7 @@
       var btn = document.getElementById(prefix + '_postcode').closest('.postcode-input-wrap').querySelector('.lookup-btn');
       btn.disabled = true;
       btn.textContent = 'Searching…';
-      fetch('https://api.idealpostcodes.co.uk/v1/postcodes/' + encodeURIComponent(postcode) + '?api_key=' + IP_KEY)
+      fetch('/api/lookup-postcode?postcode=' + encodeURIComponent(postcode))
         .then(function(r) { return r.json(); })
         .then(function(data) {
           btn.disabled = false;
