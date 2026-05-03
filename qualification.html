@@ -747,7 +747,7 @@
 
   <script>
     var WEBHOOK = 'https://hook.eu1.make.com/on2abjzvds0gb4hy1wlouuripsg7cnm9';
-    var GETADDRESS_KEY = 'dtoken_hEDzcyiWMr1LTkcAcrokfvA4hjvdl1H6-uUfgJUB3be4y6wGirE-s41eyhADhPZygyvRlDG9V73wRPR9BDN8j_ddR1OJYjw5oqa86qgoCDOQZZm-d_R06akgCdQ0fv0MtpDUN3AeMeqQu5VzK_pJsGhfTTi6Qkpn-wKOtI4lPsVCgUmYJVBn8jVBom_Jj7-cUgMFhK6yC-vIgkvWK60gvetReb-Kpcif';
+    var IDEALPOSTCODES_KEY = 'ak_mge4qvjb2ahpDnl87gS7eCwRB3eiX';
 
     function lookupPostcode() {
       var postcode = document.getElementById('q_postcode').value.trim().replace(/\s+/g, '');
@@ -764,7 +764,7 @@
       btn.disabled = true;
       btn.textContent = 'Searching…';
 
-      fetch('https://api.getaddress.io/find/' + encodeURIComponent(postcode) + '?api-key=' + GETADDRESS_KEY)
+      fetch('https://api.ideal-postcodes.co.uk/v1/postcodes/' + encodeURIComponent(postcode) + '?api_key=' + IDEALPOSTCODES_KEY)
         .then(function(r) {
           if (!r.ok) throw new Error('not found');
           return r.json();
@@ -773,8 +773,8 @@
           var select = document.getElementById('q_address_select');
           select.innerHTML = '<option value="">— Select your address —</option>';
 
-          data.addresses.forEach(function(addr) {
-            var parts = addr.split(',').map(function(p){ return p.trim(); }).filter(Boolean);
+          data.result.forEach(function(addr) {
+            var parts = [addr.line_1, addr.line_2, addr.line_3, addr.post_town].filter(Boolean);
             var label = parts.join(', ');
             var opt = document.createElement('option');
             opt.value = label;
@@ -784,7 +784,7 @@
 
           var manualOpt = document.createElement('option');
           manualOpt.value = '__manual__';
-          manualOpt.textContent = 'My address isn\'t listed — enter manually';
+          manualOpt.textContent = "My address isn't listed — enter manually";
           select.appendChild(manualOpt);
 
           document.getElementById('addressSelectGroup').style.display = 'block';
