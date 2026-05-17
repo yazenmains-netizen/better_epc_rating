@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The £249 Package — Better EPC Rating</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:  #16512a;
+      --green-mid:   #2e7d32;
+      --green-light: #4caf50;
+      --green-pale:  #edf7ee;
+      --green-border:#c5e8c7;
+      --text:        #111827;
+      --text-muted:  #6b7280;
+      --border:      #e5e7eb;
+      --white:       #ffffff;
+      --bg:          #f9fafb;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER */
+    .header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 88px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+    .header img { height: 68px; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #16512a 0%, #2e7d32 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 24px 56px;
+    }
+    .hero-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero h1 span {
+      color: #a5d6a7;
+    }
+    .hero p {
+      font-size: 17px;
+      opacity: 0.88;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .price-badge {
+      display: inline-block;
+      background: white;
+      color: var(--green-deep);
+      font-size: 38px;
+      font-weight: 900;
+      padding: 14px 40px;
+      border-radius: 12px;
+      margin: 28px 0 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .price-badge small {
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.7;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* WRAPPER */
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* WHAT'S INCLUDED */
+    .section {
+      padding: 56px 0;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 36px;
+    }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 500px) {
+      .included-grid { grid-template-columns: 1fr; }
+    }
+    .included-card {
+      background: white;
+      border: 1.5px solid var(--green-border);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .included-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--green-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 24px;
+    }
+    .included-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--green-deep);
+    }
+    .included-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* PROCESS */
+    .process-wrap {
+      padding: 56px 0 72px;
+    }
+    .steps {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 27px;
+      top: 56px;
+      width: 2px;
+      height: calc(100% - 8px);
+      background: var(--green-border);
+    }
+    .step-left {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--green-deep);
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(22,81,42,0.3);
+    }
+    .step-body {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 26px;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .step-tag {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green-deep);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .step-body h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .step-body p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* OUTCOME */
+    .outcome {
+      background: linear-gradient(135deg, #16512a, #2e7d32);
+      border-radius: 18px;
+      padding: 40px 36px;
+      text-align: center;
+      color: white;
+      margin-top: 40px;
+    }
+    .outcome h2 {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .outcome p {
+      font-size: 15px;
+      opacity: 0.88;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .epc-c {
+      display: inline-block;
+      background: #69b34c;
+      color: white;
+      font-size: 42px;
+      font-weight: 900;
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      line-height: 72px;
+      margin: 20px 0 16px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+    .footer img { height: 36px; margin: 0 auto 10px; }
+
+    @media (max-width: 600px) {
+      .step:not(:last-child)::after { left: 23px; }
+      .step-num { width: 48px; height: 48px; font-size: 17px; }
+      .step-body { padding: 18px 18px; }
+      .outcome { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <img src="better-logo.png" alt="Better EPC Rating" />
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">Our Service</div>
+    <h1>The <span>£249</span> EPC Roadmap<br>Package</h1>
+    <p>We survey your property, tell you the cheapest way to reach EPC C, walk you through it — and get you there.</p>
+    <div class="price-badge">
+      £249
+      <small>One-off payment · All inclusive</small>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED -->
+  <div class="wrap">
+    <section class="section">
+      <h2 class="section-title">What's Included</h2>
+      <p class="section-sub">Everything needed to get your property to EPC C — at the lowest possible cost.</p>
+      <div class="included-grid">
+        <div class="included-card">
+          <div class="included-icon">🏠</div>
+          <h3>On-Site Survey</h3>
+          <p>A qualified assessor visits your property to gather all the data needed.</p>
+        </div>
+        <div class="included-card">
+          <div class="included-icon">📋</div>
+          <h3>EPC Roadmap</h3>
+          <p>A personalised plan showing the cheapest, fastest improvements to reach C.</p>
+        </div>
+        <div class="included-card">
+          <div class="included-icon">📞</div>
+          <h3>Consultation</h3>
+          <p>We walk you through every step — exactly what to do and in what order.</p>
+        </div>
+        <div class="included-card">
+          <div class="included-icon">📜</div>
+          <h3>Official EPC Certificate</h3>
+          <p>Your new EPC lodged on the government register once you've hit C.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PROCESS -->
+  <div class="wrap">
+    <div class="process-wrap">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">From sign-up to official EPC C — here's every step.</p>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">1</div>
+          </div>
+          <div class="step-body">
+            <span class="step-tag">Lead comes in</span>
+            <h3>Customer Fills Out the Form</h3>
+            <p>They see the ad, click through to the qualification page, and submit their property details and contact info.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">2</div>
+          </div>
+          <div class="step-body">
+            <span class="step-tag">We reach out</span>
+            <h3>We Call & Take Payment</h3>
+            <p>We contact them within 24 hours, explain the £249 package, answer any questions, and take payment to confirm the booking.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">3</div>
+          </div>
+          <div class="step-body">
+            <span class="step-tag">On the ground</span>
+            <h3>On-Site Survey</h3>
+            <p>Our assessor visits the property, measures, inspects, and gathers everything needed to produce the EPC and roadmap.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">4</div>
+          </div>
+          <div class="step-body">
+            <span class="step-tag">We deliver</span>
+            <h3>EPC Roadmap & Consultation</h3>
+            <p>We produce the personalised roadmap — quick wins first, lowest cost, biggest impact. Then we consult the customer through every improvement needed to hit C.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">5</div>
+          </div>
+          <div class="step-body">
+            <span class="step-tag">Final step</span>
+            <h3>Customer Implements & Gets Official EPC C</h3>
+            <p>The customer carries out the recommended improvements. We then conduct the official EPC assessment — lodged on the government register — confirming their new C rating.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- OUTCOME -->
+      <div class="outcome">
+        <div class="epc-c">C</div>
+        <h2>The Result: An Official EPC C Rating</h2>
+        <p>No guesswork, no wasted money on expensive upgrades that don't move the needle. Just a clear, affordable path to C — and an official certificate to prove it.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <img src="better-logo.png" alt="Better EPC Rating" />
+    betterepcrating.co.uk &nbsp;·&nbsp; Confidential — Internal Use
+  </footer>
+
+</body>
+</html>

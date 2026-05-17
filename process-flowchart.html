@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Better EPC Rating — Internal Process Flow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:   #16512a;
+      --green-dark:   #1d6b34;
+      --green-mid:    #2e7d32;
+      --green-light:  #4caf50;
+      --green-pale:   #edf7ee;
+      --green-border: #c5e8c7;
+      --cta:          #e65100;
+      --amber:        #ffd54f;
+      --text:         #111827;
+      --text-muted:   #6b7280;
+      --border:       #e5e7eb;
+      --white:        #ffffff;
+      --bg:           #f4f9f5;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 48px 24px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .page-header img { height: 58px; margin: 0 auto 20px; display: block; }
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--green-deep);
+      letter-spacing: -0.3px;
+    }
+    .page-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* ── CHART WRAPPER ── */
+    .chart {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── SHARED NODE STYLES ── */
+    .node {
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.4;
+      position: relative;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+
+    /* Process box */
+    .process {
+      background: white;
+      border: 2px solid var(--green-border);
+      color: var(--green-deep);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    /* Auto / system action */
+    .auto {
+      background: var(--green-pale);
+      border: 2px solid var(--green-mid);
+      color: var(--green-dark);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    /* Decision diamond */
+    .decision-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    .decision {
+      background: var(--amber);
+      border: 2px solid #f59e0b;
+      color: #78350f;
+      transform: rotate(0deg);
+      border-radius: 8px;
+      max-width: 260px;
+      width: 260px;
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* End node */
+    .end {
+      background: var(--green-deep);
+      border: 2px solid var(--green-deep);
+      color: white;
+      max-width: 260px;
+      margin: 0 auto;
+      border-radius: 50px;
+    }
+
+    /* CRM / nurture box */
+    .nurture {
+      background: #fff7ed;
+      border: 2px solid #fed7aa;
+      color: #9a3412;
+      max-width: 240px;
+    }
+
+    /* ── ARROWS ── */
+    .arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin: 0 auto;
+    }
+    .arrow-line {
+      width: 2px;
+      height: 22px;
+      background: #9ca3af;
+    }
+    .arrow-head {
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 9px solid #9ca3af;
+    }
+    .arrow-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin: 2px 0;
+    }
+
+    /* ── BRANCH SECTION ── */
+    .branch {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      align-items: start;
+      max-width: 780px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .branch-divider {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+    }
+    .branch-line-v {
+      width: 2px;
+      background: #9ca3af;
+      flex: 1;
+      min-height: 40px;
+    }
+
+    /* Horizontal connector line */
+    .h-connector {
+      display: flex;
+      align-items: center;
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto;
+      height: 2px;
+    }
+    .h-connector-line {
+      position: absolute;
+      top: 0;
+      left: 25%;
+      right: 25%;
+      height: 2px;
+      background: #9ca3af;
+    }
+
+    /* Branch col */
+    .branch-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .branch-col.left { align-items: flex-end; padding-right: 20px; }
+    .branch-col.right { align-items: flex-start; padding-left: 20px; }
+
+    /* Branch label pill */
+    .branch-pill {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+    .pill-yes { background: #dcfce7; color: #166534; }
+    .pill-no  { background: #fee2e2; color: #991b1b; }
+
+    /* Step number badge */
+    .step-badge {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 22px;
+      height: 22px;
+      background: var(--green-mid);
+      color: white;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section label */
+    .section-title {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      max-width: 700px;
+      margin: 52px auto 0;
+      padding: 20px 24px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .legend-box {
+      width: 16px; height: 16px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    /* Inline sub-note */
+    .sub-note {
+      font-size: 11.5px;
+      font-weight: 400;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* Nurture sub-steps */
+    .nurture-steps {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <img src="better-logo.png" alt="Better EPC Rating" />
+    <h1>Internal Lead Process Flow</h1>
+    <p>From form submission to EPC certificate — step by step</p>
+  </div>
+
+  <div class="chart">
+
+    <!-- STEP 1: Lead fills form -->
+    <div class="section-title">Lead Acquisition</div>
+    <div class="node process" style="position:relative;">
+      <span class="step-badge">1</span>
+      Lead Fills Out Qualification Form
+      <span class="sub-note">Name, property address, contact details</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 2: Auto email -->
+    <div class="node auto" style="position:relative;">
+      <span class="step-badge" style="background:var(--green-light);">2</span>
+      ⚡ Automated Confirmation Email Sent
+      <span class="sub-note">Thank you, team will be in touch shortly</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 3: Manual call -->
+    <div class="node process" style="position:relative;">
+      <span class="step-badge">3</span>
+      Team Member Calls Lead
+      <span class="sub-note">Manual outreach — explain & pitch the offer</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- DECISION: Interested? -->
+    <div class="decision-wrap">
+      <div class="node decision">
+        Interested in the offer?
+      </div>
+    </div>
+
+    <!-- BRANCH -->
+    <div style="height:16px; max-width:780px; margin:0 auto; position:relative;">
+      <div style="position:absolute; left:calc(25% - 1px); top:0; width:2px; height:16px; background:#9ca3af;"></div>
+      <div style="position:absolute; left:calc(25%); top:16px; width:calc(50%); height:2px; background:#9ca3af; transform:translateY(-1px);"></div>
+      <div style="position:absolute; right:calc(25% - 1px); top:0; width:2px; height:16px; background:#9ca3af;"></div>
+    </div>
+
+    <div class="branch" style="margin-top:0;">
+
+      <!-- LEFT: Not interested -->
+      <div class="branch-col left">
+        <div style="display:flex; flex-direction:column; align-items:center; width:100%; gap:0;">
+          <div style="height:10px; width:2px; background:#9ca3af;"></div>
+          <span class="branch-pill pill-no">No</span>
+          <div class="nurture-steps">
+            <div class="node nurture" style="position:relative; width:100%; max-width:240px;">
+              <span class="step-badge" style="background:#e65100;">4a</span>
+              Enter CRM
+              <span class="sub-note">3-day automated email warm-up sequence</span>
+            </div>
+            <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+            <div class="node nurture" style="width:100%; max-width:240px;">
+              No Reply After Sequence?
+              <span class="sub-note">Move to weekly follow-up email</span>
+            </div>
+            <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+            <div class="node nurture" style="width:100%; max-width:240px; border-style:dashed;">
+              📧 Weekly Email (Ongoing)
+              <span class="sub-note">Until they reply or unsubscribe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTRE divider -->
+      <div class="branch-divider">
+        <div class="branch-line-v"></div>
+      </div>
+
+      <!-- RIGHT: Interested -->
+      <div class="branch-col right">
+        <div style="display:flex; flex-direction:column; align-items:center; width:100%; gap:0;">
+          <div style="height:10px; width:2px; background:#9ca3af;"></div>
+          <span class="branch-pill pill-yes">Yes</span>
+          <div style="display:flex; flex-direction:column; align-items:center; width:100%; gap:0;">
+            <div class="node auto" style="position:relative; width:100%; max-width:240px;">
+              <span class="step-badge" style="background:var(--green-light);">4b</span>
+              ⚡ Payment Link Sent
+              <span class="sub-note">£60 deposit to secure surveyor & date</span>
+            </div>
+            <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+            <div class="node process" style="position:relative; width:100%; max-width:240px;">
+              <span class="step-badge">5</span>
+              Deposit Paid ✓
+              <span class="sub-note">£60 + VAT confirmed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Rejoin arrow from YES side -->
+    <div style="max-width:780px; margin:0 auto; position:relative; height:24px;">
+      <div style="position:absolute; right:calc(25% - 1px); top:0; width:2px; height:24px; background:#9ca3af;"></div>
+      <div style="position:absolute; right:calc(25%); top:24px; width:calc(25% + 160px); height:2px; background:#9ca3af; transform:translateY(-1px);"></div>
+      <div style="position:absolute; left:50%; top:24px; width:2px; height:0; background:#9ca3af;"></div>
+    </div>
+
+    <div style="display:flex; justify-content:center;">
+      <div style="display:flex; flex-direction:column; align-items:center; margin-top:-2px;">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+    </div>
+
+    <!-- STEP 6: Survey booked -->
+    <div style="margin-top:0; border-top: 2px dashed var(--green-border); padding-top:24px; margin-top:8px;">
+      <div class="section-title">Survey & Delivery</div>
+    </div>
+
+    <div class="node process" style="position:relative;">
+      <span class="step-badge">6</span>
+      Survey Booked with Surveyor
+      <span class="sub-note">Date confirmed with lead & surveyor</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 7: Surveyor visits -->
+    <div class="node process" style="position:relative;">
+      <span class="step-badge">7</span>
+      Surveyor Visits Property
+      <span class="sub-note">On-site assessment carried out</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 8: Survey complete email -->
+    <div class="node auto" style="position:relative;">
+      <span class="step-badge" style="background:var(--green-light);">8</span>
+      ⚡ Email: Survey Complete
+      <span class="sub-note">Report expected within 3–5 working days</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 9: Full payment -->
+    <div class="node process" style="position:relative;">
+      <span class="step-badge">9</span>
+      Full Payment Received
+      <span class="sub-note">Remaining £190 confirmed</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 10: Report sent -->
+    <div class="node auto" style="position:relative;">
+      <span class="step-badge" style="background:var(--green-light);">10</span>
+      ⚡ Report Sent to Client
+      <span class="sub-note">Full EPC roadmap delivered</span>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- END -->
+    <div class="node end">
+      EPC Certificate Issued &amp; Lodged ✓
+    </div>
+
+    <!-- LEGEND -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-box" style="background:white; border:2px solid var(--green-border);"></div>
+        Manual Step
+      </div>
+      <div class="legend-item">
+        <div class="legend-box" style="background:var(--green-pale); border:2px solid var(--green-mid);"></div>
+        ⚡ Automated Step
+      </div>
+      <div class="legend-item">
+        <div class="legend-box" style="background:#fff7ed; border:2px solid #fed7aa;"></div>
+        Nurture / CRM Sequence
+      </div>
+      <div class="legend-item">
+        <div class="legend-box" style="background:var(--amber); border:2px solid #f59e0b;"></div>
+        Decision Point
+      </div>
+      <div class="legend-item">
+        <div class="legend-box" style="background:var(--green-deep);"></div>
+        End / Completed
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
