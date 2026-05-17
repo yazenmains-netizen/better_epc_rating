@@ -259,6 +259,49 @@
     .flow-step.active .step-title { color: var(--green-mid); }
     .flow-step.active .step-desc  { color: var(--text); }
 
+    .cta-card {
+      margin: 42px auto 0;
+      max-width: 520px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+      animation: fadeUp 0.6s 1.9s ease both;
+      opacity: 0;
+    }
+    .cta-card h3 {
+      color: var(--green-deep);
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .cta-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #25D366;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 13px 22px;
+      box-shadow: 0 10px 24px rgba(37,211,102,0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .whatsapp-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(37,211,102,0.34);
+    }
+
     /* FOOTER */
     footer {
       background: #0d1117;
@@ -302,8 +345,8 @@
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
     </div>
-    <h1>You're all booked in!</h1>
-    <p>We've received your enquiry and you'll get a confirmation email shortly. We'll be in touch within 24 hours.</p>
+    <h1>Thanks — we've received your enquiry</h1>
+    <p>You'll get a confirmation email shortly. We'll be in touch within 24 hours.</p>
   </div>
 
   <!-- PROCESS FLOW -->
@@ -361,6 +404,12 @@
         <div class="step-desc">Your new EPC lodged on the government register once you've hit C.</div>
       </div>
 
+    </div>
+
+    <div class="cta-card">
+      <h3>Need to speak sooner?</h3>
+      <p>If you have a quick question or want to add more property details, message us on WhatsApp.</p>
+      <a class="whatsapp-btn" href="https://wa.me/447413993550?text=Hi%20Better%20EPC%20Rating%2C%20I%27ve%20just%20submitted%20the%20qualification%20form%20and%20would%20like%20to%20speak%20about%20my%20property." target="_blank" rel="noopener">Contact us on WhatsApp</a>
     </div>
   </section>
 
