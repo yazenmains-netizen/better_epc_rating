@@ -1634,6 +1634,90 @@
       });
     }
 
+    // ─── EPC CHECKER ───
+    var IDX_BANDS = ['A','B','C','D','E','F','G'];
+    var IDX_SCORES = {A:'92–100',B:'81–91',C:'69–80',D:'55–68',E:'39–54',F:'21–38',G:'1–20'};
+    var IDX_COST = {
+      D: { typical:'£500–£2,500', us:'From £250', desc:'Most D-rated properties need just 1–2 low-cost measures to reach C.' },
+      E: { typical:'£2,500–£6,000', us:'From £250', desc:'Usually needs insulation + one heating improvement, in the right order.' },
+      F: { typical:'£6,000–£12,000', us:'From £250', desc:'Significant gap — the order of works matters a great deal here.' },
+      G: { typical:'£10,000–£20,000', us:'From £250', desc:'Our survey identifies grants and the cheapest sequence of improvements.' },
+    };
+    var idxProperties = [];
+
+    function idxShow(id) { document.getElementById(id).classList.add('show'); }
+    function idxHide(id) { document.getElementById(id).classList.remove('show'); }
+    function idxHideAll() { ['idxLoading','idxProps','idxError','idxResult'].forEach(idxHide); }
+
+    function idxReset() {
+      idxHideAll();
+      document.getElementById('idxCheckerInput').style.display = '';
+      document.getElementById('idxPostcode').focus();
+    }
+
+    async function idxLookup() {
+      var raw = document.getElementById('idxPostcode').value.trim();
+      if (!raw) return;
+      document.getElementById('idxCheckerInput').style.display = 'none';
+      idxHideAll();
+      idxShow('idxLoading');
+      try {
+        var res = await fetch('/api/epc-lookup?postcode=' + encodeURIComponent(raw));
+        var data = await res.json();
+        idxHide('idxLoading');
+        if (!res.ok || !data.properties || !data.properties.length) {
+          document.getElementById('idxErrorMsg').textContent = data.error || 'No EPC certificates found for this postcode.';
+          idxShow('idxError'); return;
+        }
+        idxProperties = data.properties;
+        if (data.properties.length === 1) { idxShowResult(data.properties[0]); }
+        else { idxRenderProps(data.properties); idxShow('idxProps'); }
+      } catch(e) {
+        idxHide('idxLoading');
+        document.getElementById('idxErrorMsg').textContent = 'Something went wrong. Please try again.';
+        idxShow('idxError');
+      }
+    }
+
+    function idxRenderProps(props) {
+      document.getElementById('idxPropsLabel').textContent = props.length + ' properties found — select yours';
+      var c = document.getElementById('idxPropItems'); c.innerHTML = '';
+      props.forEach(function(p) {
+        var el = document.createElement('div');
+        el.className = 'checker-prop-item';
+        el.innerHTML = '<span class="checker-prop-addr">' + p.address + '</span><span class="checker-prop-band cpb-' + p.band + '">' + p.band + '</span>';
+        el.onclick = function() { idxHide('idxProps'); idxShowResult(p); };
+        c.appendChild(el);
+      });
+    }
+
+    function idxShowProps() { idxHide('idxResult'); idxShow('idxProps'); }
+
+    function idxShowResult(prop) {
+      document.getElementById('idxResultAddr').textContent = prop.address + ', ' + prop.postcode;
+      var chart = document.getElementById('idxChart'); chart.innerHTML = '';
+      IDX_BANDS.forEach(function(b) {
+        var isCur = b === prop.band, isTgt = b === 'C';
+        var row = document.createElement('div');
+        row.className = 'idx-epc-row' + (isCur ? ' is-current' : '');
+        var tagHtml = isCur ? '<span class="idx-epc-tag idx-tag-cur">Yours</span>' : (isTgt ? '<span class="idx-epc-tag idx-tag-tgt">Target</span>' : '<span style="width:44px"></span>');
+        row.innerHTML = '<div class="idx-epc-bar b' + b + '"><span>' + b + '</span><span class="bs">' + IDX_SCORES[b] + '</span></div>' + tagHtml;
+        chart.appendChild(row);
+      });
+      var costEl = document.getElementById('idxCostCards');
+      var info = IDX_COST[prop.band];
+      if (!info) {
+        costEl.innerHTML = '<div class="checker-compliant"><h4>✅ Already compliant</h4><p>Your property is rated ' + prop.band + ' — above the 2030 minimum. No action needed.</p></div>';
+      } else {
+        costEl.innerHTML = '<div class="checker-cost-cards"><div class="checker-cost-card ccc-typical"><div class="ccc-label">Typical contractor route</div><div class="ccc-amount">' + info.typical + '</div><div class="ccc-desc">' + info.desc + '</div></div><div class="checker-cost-card ccc-us"><div class="ccc-label">Better EPC Rating</div><div class="ccc-amount">' + info.us + '</div><div class="ccc-desc">Our survey finds the cheapest path specific to your property.</div></div></div>';
+      }
+      idxShow('idxResult');
+    }
+
+    document.getElementById('idxPostcode').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') idxLookup();
+    });
+
     // Smooth anchor scroll with offset for sticky nav
     document.querySelectorAll('a[href="#get-roadmap"]').forEach(function(link) {
       link.addEventListener('click', function(e) {
