@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free EPC Checker — Check Your Property's Energy Rating | Better EPC Rating</title>
+  <meta name="description" content="Check your rental property's current EPC rating instantly using the government register. Find out what it will cost to reach EPC C and what improvements are needed." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #16512a; --green-dark: #1d6b34; --green-mid: #2e7d32;
+      --green-light: #4caf50; --green-pale: #edf7ee; --green-border: #c5e8c7;
+      --cta: #e65100; --cta-hover: #bf360c; --text: #111827;
+      --text-muted: #6b7280; --border: #e5e7eb; --white: #ffffff; --bg: #f9fafb;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { background: var(--green-deep); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo img { height: 44px; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 6px; transition: all 0.15s; white-space: nowrap; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-cta { background: var(--cta); color: #fff !important; border-radius: 6px; padding: 7px 14px !important; }
+    .nav-cta:hover { background: var(--cta-hover) !important; }
+    @media(max-width:680px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%); padding: 52px 24px 48px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); color: rgba(255,255,255,0.9); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .hero h1 { font-size: clamp(24px,4vw,40px); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.3px; }
+    .hero h1 em { font-style: normal; color: #aef0b8; }
+    .hero p { font-size: 16px; color: rgba(255,255,255,0.82); max-width: 520px; margin: 0 auto; line-height: 1.65; }
+
+    /* TOOL */
+    .tool-wrap { max-width: 760px; margin: 0 auto; padding: 40px 24px 60px; }
+    .tool-card { background: #fff; border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.1); overflow: hidden; }
+
+    /* POSTCODE STEP */
+    .step-postcode { padding: 32px; }
+    .step-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green-mid); margin-bottom: 10px; }
+    .step-postcode h2 { font-size: 20px; font-weight: 800; color: var(--green-deep); margin-bottom: 6px; }
+    .step-postcode p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6; }
+    .postcode-form { display: flex; gap: 10px; }
+    .postcode-form input { flex: 1; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 9px; font-size: 15px; font-family: inherit; text-transform: uppercase; outline: none; transition: border-color 0.18s; }
+    .postcode-form input:focus { border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(46,125,50,0.1); }
+    .postcode-form input::placeholder { text-transform: none; color: #9ca3af; }
+    .btn-check { background: var(--green-mid); color: #fff; border: none; padding: 13px 22px; border-radius: 9px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; white-space: nowrap; transition: background 0.18s; }
+    .btn-check:hover { background: var(--green-dark); }
+    .btn-check:disabled { background: #9ca3af; cursor: not-allowed; }
+    .tool-note { font-size: 12px; color: var(--text-muted); margin-top: 10px; }
+    @media(max-width:480px) { .postcode-form { flex-direction: column; } }
+
+    /* LOADING */
+    .loading { display: none; padding: 40px 32px; text-align: center; }
+    .loading.show { display: block; }
+    .spinner { width: 40px; height: 40px; border: 3px solid var(--green-border); border-top-color: var(--green-mid); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading p { font-size: 14px; color: var(--text-muted); }
+
+    /* PROPERTY LIST */
+    .property-list { display: none; padding: 28px 32px; }
+    .property-list.show { display: block; }
+    .property-list h3 { font-size: 16px; font-weight: 700; color: var(--green-deep); margin-bottom: 4px; }
+    .property-list p { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .prop-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 9px; margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
+    .prop-item:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .prop-addr { font-size: 14px; font-weight: 600; color: var(--text); }
+    .prop-band { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; color: #fff; }
+    .prop-band.A { background: #00a550; } .prop-band.B { background: #19b040; } .prop-band.C { background: #8bc34a; color: #1a3a0a; }
+    .prop-band.D { background: #ffd600; color: #333; } .prop-band.E { background: #f4a01c; } .prop-band.F { background: #e8540c; } .prop-band.G { background: #e00d0d; }
+    .prop-back { font-size: 12px; color: var(--green-mid); cursor: pointer; font-weight: 600; margin-top: 8px; display: inline-block; }
+    .prop-back:hover { text-decoration: underline; }
+
+    /* RESULTS */
+    .results { display: none; }
+    .results.show { display: block; }
+
+    .result-header { background: var(--green-pale); border-bottom: 1px solid var(--green-border); padding: 20px 32px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .result-addr { }
+    .result-addr-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green-mid); margin-bottom: 3px; }
+    .result-addr-text { font-size: 15px; font-weight: 700; color: var(--green-deep); }
+    .result-reg { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .back-btn { font-size: 13px; color: var(--green-mid); font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .back-btn:hover { text-decoration: underline; }
+
+    /* EPC BAND CHART */
+    .epc-section { padding: 28px 32px; border-bottom: 1px solid var(--border); }
+    .epc-section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+    .epc-chart { display: flex; flex-direction: column; gap: 3px; max-width: 520px; position: relative; }
+    .epc-row { display: flex; align-items: center; gap: 12px; }
+    .epc-bar-wrap { flex: 1; position: relative; }
+    .epc-bar { height: 38px; border-radius: 0 4px 4px 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px 0 10px; font-weight: 800; font-size: 16px; color: #fff; transition: all 0.4s ease; position: relative; }
+    .epc-bar.A { width: 90%; background: #00a550; }
+    .epc-bar.B { width: 80%; background: #19b040; }
+    .epc-bar.C { width: 70%; background: #8bc34a; color: #1a3a0a; }
+    .epc-bar.D { width: 60%; background: #ffd600; color: #333; }
+    .epc-bar.E { width: 50%; background: #f4a01c; }
+    .epc-bar.F { width: 40%; background: #e8540c; }
+    .epc-bar.G { width: 30%; background: #e00d0d; }
+    .epc-bar .bar-score { font-size: 12px; font-weight: 500; opacity: 0.85; }
+    .epc-row.is-current .epc-bar { box-shadow: 0 0 0 3px #1d6b34, 0 4px 20px rgba(0,0,0,0.2); z-index: 1; }
+    .epc-row.is-target .epc-bar { box-shadow: 0 0 0 2px #e65100; }
+    .epc-row-label { width: 120px; display: flex; flex-direction: column; flex-shrink: 0; }
+    .epc-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+    .tag-current { background: var(--green-deep); color: #fff; }
+    .tag-target { background: #fff3e0; color: var(--cta); border: 1px solid #f4a01c; }
+    .epc-legend { margin-top: 14px; display: flex; gap: 20px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+    /* COST SECTION */
+    .cost-section { padding: 28px 32px; border-bottom: 1px solid var(--border); }
+    .cost-section h3 { font-size: 17px; font-weight: 800; color: var(--green-deep); margin-bottom: 6px; }
+    .cost-section > p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+    .cost-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cost-card { border-radius: 12px; padding: 18px; }
+    .cost-card-typical { background: #fef9f0; border: 1px solid #f4e0b8; }
+    .cost-card-us { background: var(--green-pale); border: 1px solid var(--green-border); }
+    .cost-card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .cost-card-typical .cost-card-label { color: #b45309; }
+    .cost-card-us .cost-card-label { color: var(--green-dark); }
+    .cost-amount { font-size: 24px; font-weight: 900; line-height: 1.1; margin-bottom: 6px; }
+    .cost-card-typical .cost-amount { color: #92400e; }
+    .cost-card-us .cost-amount { color: var(--green-deep); }
+    .cost-desc { font-size: 12.5px; line-height: 1.5; }
+    .cost-card-typical .cost-desc { color: #92400e; }
+    .cost-card-us .cost-desc { color: var(--green-dark); }
+    @media(max-width:480px) { .cost-cards { grid-template-columns: 1fr; } }
+
+    /* SAVINGS CALLOUT */
+    .savings-callout { background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 14px 16px; margin-top: 14px; font-size: 13.5px; color: #14532d; line-height: 1.6; }
+
+    /* COMPLIANT STATE */
+    .compliant-box { padding: 32px; text-align: center; }
+    .compliant-icon { font-size: 48px; margin-bottom: 12px; }
+    .compliant-box h3 { font-size: 20px; font-weight: 800; color: var(--green-deep); margin-bottom: 8px; }
+    .compliant-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 420px; margin: 0 auto; }
+
+    /* CTA */
+    .cta-section { padding: 28px 32px; background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%); }
+    .cta-section h3 { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .cta-section p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 18px; max-width: 480px; }
+    .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-cta { background: var(--cta); color: #fff; text-decoration: none; padding: 13px 22px; border-radius: 9px; font-size: 14px; font-weight: 800; transition: background 0.18s; display: inline-block; }
+    .btn-cta:hover { background: var(--cta-hover); }
+    .btn-secondary { background: rgba(255,255,255,0.12); color: #fff; text-decoration: none; padding: 13px 22px; border-radius: 9px; font-size: 14px; font-weight: 700; border: 1px solid rgba(255,255,255,0.25); transition: background 0.18s; display: inline-block; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+
+    /* ERROR */
+    .error-box { display: none; padding: 24px 32px; }
+    .error-box.show { display: block; }
+    .error-inner { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 10px; padding: 16px; }
+    .error-inner p { font-size: 14px; color: #991b1b; line-height: 1.5; }
+    .error-retry { font-size: 13px; color: var(--green-mid); font-weight: 600; cursor: pointer; margin-top: 8px; display: inline-block; }
+    .error-retry:hover { text-decoration: underline; }
+
+    /* TRUST BAR */
+    .trust-bar { background: var(--green-pale); border-top: 1px solid var(--green-border); border-bottom: 1px solid var(--green-border); padding: 12px 24px; margin-bottom: 40px; }
+    .trust-inner { max-width: 760px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 32px; }
+    .trust-pill { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--green-deep); }
+
+    /* INFO BOXES */
+    .info-section { max-width: 760px; margin: 0 auto; padding: 0 24px 60px; }
+    .info-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .info-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .info-card-icon { font-size: 28px; margin-bottom: 10px; }
+    .info-card h4 { font-size: 14px; font-weight: 700; color: var(--green-deep); margin-bottom: 6px; }
+    .info-card p { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+    @media(max-width:580px) { .info-cards { grid-template-columns: 1fr; } }
+    @media(max-width:380px) { .info-cards { grid-template-columns: 1fr; } }
+
+    footer { background: #0d1117; padding: 28px 24px; text-align: center; }
+    footer img { height: 40px; opacity: 0.8; margin-bottom: 10px; }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><img src="better-logo.png" alt="Better EPC Rating" /></a>
+  <div class="nav-links">
+    <a href="/epc-checker.html" class="active">EPC Checker</a>
+    <a href="/epc-regulations.html">EPC Regulations</a>
+    <a href="/how-to-improve-epc.html">Improve Your EPC</a>
+    <a href="/qualification.html" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Free Tool — Powered by Government Data</div>
+  <h1>Check Your Property's<br/><em>EPC Rating Instantly</em></h1>
+  <p>Enter your postcode to pull your property's current EPC rating directly from the government register. Find out what it will cost to reach C — and how we can get you there for less.</p>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <span class="trust-pill">✓ Live government data</span>
+    <span class="trust-pill">✓ No account needed</span>
+    <span class="trust-pill">✓ Results in seconds</span>
+    <span class="trust-pill">✓ Covers England &amp; Wales</span>
+  </div>
+</div>
+
+<div class="tool-wrap">
+  <div class="tool-card">
+
+    <!-- STEP 1: POSTCODE -->
+    <div class="step-postcode" id="stepPostcode">
+      <div class="step-label">Step 1</div>
+      <h2>Enter your property postcode</h2>
+      <p>We'll search the government EPC register and pull up all properties at that postcode. Select yours to see the full rating.</p>
+      <div class="postcode-form">
+        <input type="text" id="postcodeInput" placeholder="e.g. B15 2TT" maxlength="8" autocomplete="postal-code" />
+        <button class="btn-check" id="checkBtn" onclick="lookupPostcode()">Check EPC</button>
+      </div>
+      <p class="tool-note">Data sourced from the government Energy Performance of Buildings register. Covers England and Wales.</p>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>Searching the government register…</p>
+    </div>
+
+    <!-- PROPERTY LIST -->
+    <div class="property-list" id="propertyList">
+      <h3 id="listTitle">Properties found</h3>
+      <p id="listSub">Select your property to see the full EPC rating.</p>
+      <div id="propItems"></div>
+      <span class="prop-back" onclick="resetTool()">← Search a different postcode</span>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-box" id="errorBox">
+      <div class="error-inner">
+        <p id="errorMsg">No EPC certificates found for this postcode.</p>
+        <span class="error-retry" onclick="resetTool()">← Try a different postcode</span>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results" id="resultsPanel">
+
+      <div class="result-header">
+        <div class="result-addr">
+          <div class="result-addr-label">Property</div>
+          <div class="result-addr-text" id="resultAddr"></div>
+          <div class="result-reg" id="resultReg"></div>
+        </div>
+        <span class="back-btn" onclick="showPropertyList()">← Change property</span>
+      </div>
+
+      <!-- EPC BAND CHART -->
+      <div class="epc-section">
+        <div class="epc-section-title">Current EPC Rating</div>
+        <div class="epc-chart" id="epcChart"></div>
+        <div class="epc-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:var(--green-deep)"></span> Your property</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--cta)"></span> 2030 target (EPC C)</span>
+        </div>
+      </div>
+
+      <!-- COST INFO (non-compliant) -->
+      <div id="costSection"></div>
+
+      <!-- CTA -->
+      <div class="cta-section">
+        <h3>Get your cheapest route to EPC C</h3>
+        <p>Our survey visits your property, models the most cost-effective combination of improvements, and gives you a clear roadmap. £250 all-in — no guesswork, no unnecessary works.</p>
+        <div class="cta-buttons">
+          <a href="/qualification.html" class="btn-cta">Book a Free 15-Min Call →</a>
+          <a href="/epc-regulations.html" class="btn-secondary">EPC Regulations Guide</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- INFO CARDS -->
+<div class="info-section">
+  <div class="info-cards">
+    <div class="info-card">
+      <div class="info-card-icon">📋</div>
+      <h4>What is an EPC?</h4>
+      <p>An Energy Performance Certificate rates your property's energy efficiency from A (most efficient) to G (least). From 2030, all rented properties in England and Wales must be rated C or above.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">⚠️</div>
+      <h4>The 2028/2030 deadline</h4>
+      <p>New tenancies must have EPC C by 2028. All tenancies — including existing ones — must comply by 2030. Non-compliance carries fines of up to £30,000 per property.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">💡</div>
+      <h4>Why order matters</h4>
+      <p>Doing improvements in the wrong order wastes money. Insulation before heating upgrades. The right sequence can save thousands. That's what our survey is designed to identify.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="better-logo.png" alt="Better EPC Rating" /><br/>
+  <p>© 2026 Better EPC Rating &nbsp;|&nbsp; <a href="/terms.html">Terms</a> &nbsp;·&nbsp; <a href="/">betterepcrating.co.uk</a></p>
+</footer>
+
+<script>
+  const BANDS = ['A','B','C','D','E','F','G'];
+  const BAND_COLORS = { A:'#00a550', B:'#19b040', C:'#8bc34a', D:'#ffd600', E:'#f4a01c', F:'#e8540c', G:'#e00d0d' };
+  const BAND_TEXT_COLORS = { A:'#fff', B:'#fff', C:'#1a3a0a', D:'#333', E:'#fff', F:'#fff', G:'#fff' };
+  const BAND_SCORES = { A:'92–100', B:'81–91', C:'69–80', D:'55–68', E:'39–54', F:'21–38', G:'1–20' };
+  const BAND_WIDTHS = { A:'90%', B:'80%', C:'70%', D:'60%', E:'50%', F:'40%', G:'30%' };
+
+  const COST_INFO = {
+    A: { compliant: true },
+    B: { compliant: true },
+    C: { compliant: true },
+    D: {
+      compliant: false,
+      gap: 'Small gap',
+      typical: '£500–£2,500',
+      us: 'Often 1–2 low-cost measures',
+      detail: 'Most D-rated properties need relatively minor work — typically loft insulation top-up, draught proofing, and improved heating controls. Many landlords overspend by going straight to contractors before knowing which measures the property actually needs.',
+      saving: 'Landlords who get a roadmap first typically save £500–1,500 compared to those who go straight to contractors.'
+    },
+    E: {
+      compliant: false,
+      gap: 'Moderate gap',
+      typical: '£2,500–£6,000',
+      us: '2–3 targeted improvements',
+      detail: 'E-rated properties usually need insulation and possibly a heating upgrade. The order matters — cavity wall insulation before a new boiler, for example, reduces what the boiler needs to do and can change the spec you actually need.',
+      saving: 'Without a proper assessment, E-rated landlords commonly overspend by £1,000–3,000 on measures that were either unnecessary or done in the wrong order.'
+    },
+    F: {
+      compliant: false,
+      gap: 'Significant gap',
+      typical: '£6,000–£12,000',
+      us: 'Structured plan across 2–3 measures',
+      detail: 'F-rated properties have meaningful heat loss that needs addressing before heating efficiency can be improved. Getting the sequence right avoids paying for works that a later measure partially undoes.',
+      saving: 'The right order of improvements on F-rated properties saves £2,000–5,000 compared to unplanned, ad-hoc works.'
+    },
+    G: {
+      compliant: false,
+      gap: 'Substantial gap',
+      typical: '£10,000–£20,000',
+      us: 'Phased improvement strategy with grant access',
+      detail: 'G-rated properties need the most work, but this is also where the right strategy makes the biggest difference. Government grants are available for some improvements, and the sequencing of works can significantly reduce total cost.',
+      saving: 'A structured approach — including available grants — can reduce the cost of getting a G-rated property to C by 30–50%.'
+    },
+  };
+
+  let currentProperties = [];
+
+  function show(id) { document.getElementById(id).classList.add('show'); }
+  function hide(id) { document.getElementById(id).classList.remove('show'); }
+  function hideAll() {
+    ['loadingState','propertyList','errorBox','resultsPanel'].forEach(id => {
+      document.getElementById(id).classList.remove('show');
+    });
+  }
+
+  function resetTool() {
+    hideAll();
+    document.getElementById('stepPostcode').style.display = 'block';
+    document.getElementById('postcodeInput').focus();
+  }
+
+  async function lookupPostcode() {
+    const raw = document.getElementById('postcodeInput').value.trim();
+    if (!raw) return;
+
+    document.getElementById('stepPostcode').style.display = 'none';
+    hideAll();
+    show('loadingState');
+
+    try {
+      const res = await fetch('/api/epc-lookup?postcode=' + encodeURIComponent(raw));
+      const data = await res.json();
+
+      hide('loadingState');
+
+      if (!res.ok || !data.properties || data.properties.length === 0) {
+        document.getElementById('errorMsg').textContent = data.error || 'No EPC certificates found for this postcode. The property may not yet have one lodged.';
+        show('errorBox');
+        return;
+      }
+
+      currentProperties = data.properties;
+
+      if (data.properties.length === 1) {
+        showResult(data.properties[0]);
+      } else {
+        renderPropertyList(data.properties);
+        show('propertyList');
+      }
+    } catch (err) {
+      hide('loadingState');
+      document.getElementById('errorMsg').textContent = 'Something went wrong. Please try again.';
+      show('errorBox');
+    }
+  }
+
+  function renderPropertyList(props) {
+    document.getElementById('listTitle').textContent = props.length + ' properties found';
+    document.getElementById('listSub').textContent = 'Select your property to see its EPC rating.';
+    const container = document.getElementById('propItems');
+    container.innerHTML = '';
+    props.forEach((p, i) => {
+      const el = document.createElement('div');
+      el.className = 'prop-item';
+      el.innerHTML = `<span class="prop-addr">${p.address}</span><span class="prop-band ${p.band}">${p.band}</span>`;
+      el.onclick = () => { hide('propertyList'); showResult(p); };
+      container.appendChild(el);
+    });
+  }
+
+  function showPropertyList() {
+    hide('resultsPanel');
+    show('propertyList');
+  }
+
+  function showResult(prop) {
+    document.getElementById('resultAddr').textContent = prop.address + ', ' + prop.postcode;
+    document.getElementById('resultReg').textContent = prop.registered
+      ? 'EPC lodged ' + new Date(prop.registered).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+      : '';
+
+    renderEpcChart(prop.band);
+    renderCostSection(prop.band);
+    show('resultsPanel');
+  }
+
+  function renderEpcChart(currentBand) {
+    const chart = document.getElementById('epcChart');
+    chart.innerHTML = '';
+
+    BANDS.forEach(band => {
+      const isCurrent = band === currentBand;
+      const isTarget = band === 'C';
+
+      const row = document.createElement('div');
+      row.className = 'epc-row' + (isCurrent ? ' is-current' : '') + (isTarget ? ' is-target' : '');
+
+      const labelDiv = document.createElement('div');
+      labelDiv.className = 'epc-row-label';
+      if (isCurrent) labelDiv.innerHTML = `<span class="epc-tag tag-current">Your property</span>`;
+      else if (isTarget) labelDiv.innerHTML = `<span class="epc-tag tag-target">2030 target</span>`;
+
+      const barWrap = document.createElement('div');
+      barWrap.className = 'epc-bar-wrap';
+      barWrap.innerHTML = `
+        <div class="epc-bar ${band}" style="background:${BAND_COLORS[band]};width:${BAND_WIDTHS[band]};color:${BAND_TEXT_COLORS[band]}">
+          <span>${band}</span>
+          <span class="bar-score">${BAND_SCORES[band]}</span>
+        </div>`;
+
+      row.appendChild(barWrap);
+      row.appendChild(labelDiv);
+      chart.appendChild(row);
+    });
+  }
+
+  function renderCostSection(band) {
+    const info = COST_INFO[band];
+    const container = document.getElementById('costSection');
+
+    if (!info || info.compliant) {
+      container.innerHTML = `
+        <div class="compliant-box">
+          <div class="compliant-icon">✅</div>
+          <h3>Your property already meets the 2030 requirement</h3>
+          <p>An EPC ${band} rating is above the minimum EPC C needed by 2030. Your rental property is compliant — no action required for the deadline.</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="cost-section">
+        <h3>What it will cost to reach EPC C</h3>
+        <p>Your property is currently rated <strong>EPC ${band}</strong>. Here's what getting to C typically costs — and how our approach compares.</p>
+        <div class="cost-cards">
+          <div class="cost-card cost-card-typical">
+            <div class="cost-card-label">Typical contractor route</div>
+            <div class="cost-amount">${info.typical}</div>
+            <div class="cost-desc">Going straight to a contractor without a plan. Works often done in the wrong order or spec'd higher than necessary.</div>
+          </div>
+          <div class="cost-card cost-card-us">
+            <div class="cost-card-label">Better EPC Rating approach</div>
+            <div class="cost-amount">From £250</div>
+            <div class="cost-desc">${info.us}. Our survey identifies the cheapest combination of improvements specific to your property.</div>
+          </div>
+        </div>
+        <div class="savings-callout">
+          <strong>Why the difference matters:</strong> ${info.detail}<br/><br/>
+          ${info.saving}
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('postcodeInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') lookupPostcode();
+  });
+</script>
+</body>
+</html>
