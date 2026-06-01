@@ -1156,6 +1156,67 @@
     </div>
   </div>
 
+  <!-- ─── EPC CHECKER ─── -->
+  <section class="section section-checker" id="epc-check">
+    <div class="section-inner">
+      <span class="section-label">Free Tool</span>
+      <h2 class="section-title">Check Your Property's <em>Current EPC Rating</em></h2>
+      <p class="section-sub">Enter your postcode to pull your property's rating directly from the government register — and see what it will cost to reach C.</p>
+
+      <div class="checker-card">
+
+        <div class="checker-input-area" id="idxCheckerInput">
+          <h3>Enter your property postcode</h3>
+          <p>We search the government EPC register and show you every property at that postcode. Select yours to see the rating and cost estimate.</p>
+          <div class="checker-form">
+            <input type="text" id="idxPostcode" placeholder="e.g. B15 2TT" maxlength="8" autocomplete="postal-code" />
+            <button id="idxCheckBtn" onclick="idxLookup()">Check EPC →</button>
+          </div>
+        </div>
+
+        <div class="checker-loading" id="idxLoading">
+          <div class="checker-spinner"></div>
+          <p style="font-size:13px;color:var(--text-muted)">Searching government register…</p>
+        </div>
+
+        <div class="checker-props" id="idxProps">
+          <div class="checker-props-label" id="idxPropsLabel">Select your property</div>
+          <div id="idxPropItems"></div>
+          <span class="checker-retry" onclick="idxReset()" style="margin-top:8px;display:inline-block">← Search different postcode</span>
+        </div>
+
+        <div class="checker-error" id="idxError">
+          <div class="checker-error-inner">
+            <p id="idxErrorMsg">No EPC certificates found for this postcode.</p>
+            <span class="checker-retry" onclick="idxReset()">← Try a different postcode</span>
+          </div>
+        </div>
+
+        <div class="checker-result" id="idxResult">
+          <div class="checker-result-header">
+            <span class="checker-result-addr" id="idxResultAddr"></span>
+            <span class="checker-result-back" onclick="idxShowProps()">← Change property</span>
+          </div>
+          <div class="checker-result-body">
+            <div class="checker-chart-col">
+              <div class="checker-chart-title">Current EPC Rating</div>
+              <div class="idx-epc-chart" id="idxChart"></div>
+            </div>
+            <div class="checker-cost-col">
+              <div class="checker-cost-title">Cost to Reach EPC C</div>
+              <div id="idxCostCards"></div>
+            </div>
+          </div>
+          <div class="checker-cta-strip">
+            <p>Get the cheapest route to C — a £250 survey covers everything.</p>
+            <a href="#get-roadmap">Book a Free Call →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ─── PROBLEM ─── -->
   <section class="section section-problem">
     <div class="section-inner">
