@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Improve Your EPC Rating — Costs, Measures & Common Mistakes | Better EPC Rating</title>
+  <meta name="description" content="A practical guide to improving your property's EPC rating. Which measures deliver the most points, what they cost, the right order to do them, and mistakes that waste landlords' money." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #16512a; --green-dark: #1d6b34; --green-mid: #2e7d32;
+      --green-pale: #edf7ee; --green-border: #c5e8c7; --cta: #e65100;
+      --text: #111827; --text-muted: #6b7280; --border: #e5e7eb; --bg: #f9fafb;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; line-height: 1.7; }
+
+    nav { background: var(--green-deep); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo img { height: 44px; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 6px; transition: all 0.15s; white-space: nowrap; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-cta { background: var(--cta); color: #fff !important; border-radius: 6px; padding: 7px 14px !important; }
+    @media(max-width:680px) { .nav-links { display: none; } }
+
+    .hero { background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%); padding: 52px 24px 48px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); color: rgba(255,255,255,0.9); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .hero h1 { font-size: clamp(24px,4vw,38px); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 12px; }
+    .hero p { font-size: 15px; color: rgba(255,255,255,0.82); max-width: 540px; margin: 0 auto; }
+
+    .content { max-width: 740px; margin: 0 auto; padding: 48px 24px 72px; }
+
+    .section { margin-bottom: 48px; }
+    .section h2 { font-size: 22px; font-weight: 800; color: var(--green-deep); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--green-border); }
+    .section h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 22px 0 8px; }
+    .section p { font-size: 15px; color: #374151; margin-bottom: 14px; line-height: 1.75; }
+    .section ul { margin: 0 0 16px 20px; }
+    .section ul li { font-size: 15px; color: #374151; margin-bottom: 8px; line-height: 1.65; }
+
+    .callout { border-left: 4px solid var(--green-mid); background: var(--green-pale); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+    .callout p { margin: 0; color: var(--green-deep); font-size: 14.5px; line-height: 1.65; }
+    .callout-red { border-left-color: #dc2626; background: #fef2f2; }
+    .callout-red p { color: #991b1b; }
+    .callout-amber { border-left-color: #d97706; background: #fffbeb; }
+    .callout-amber p { color: #92400e; }
+
+    /* MEASURES TABLE */
+    .measures-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    .measures-table th { background: var(--green-pale); color: var(--green-deep); font-weight: 700; padding: 10px 14px; text-align: left; border: 1px solid var(--green-border); }
+    .measures-table td { padding: 10px 14px; border: 1px solid var(--border); color: #374151; vertical-align: top; }
+    .measures-table tr:nth-child(even) td { background: #f9fafb; }
+    .measures-table .impact-high { color: #166534; font-weight: 700; }
+    .measures-table .impact-med { color: #92400e; font-weight: 700; }
+    .measures-table .impact-low { color: var(--text-muted); font-weight: 600; }
+
+    /* MISTAKE CARDS */
+    .mistake-list { display: flex; flex-direction: column; gap: 14px; margin: 16px 0; }
+    .mistake-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px; display: flex; gap: 14px; }
+    .mistake-num { width: 32px; height: 32px; background: #fef2f2; border: 1px solid #fca5a5; border-radius: 50%; color: #dc2626; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mistake-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .mistake-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ORDER STEPS */
+    .order-steps { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+    .order-step { display: flex; gap: 0; }
+    .os-left { display: flex; flex-direction: column; align-items: center; width: 44px; flex-shrink: 0; }
+    .os-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--green-mid); color: #fff; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .os-line { width: 2px; flex: 1; background: var(--green-border); min-height: 16px; margin: 2px auto; }
+    .os-content { padding: 4px 0 22px 14px; }
+    .os-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .os-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* EPC SCORING */
+    .scoring-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+    .scoring-item { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .scoring-item h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .scoring-item p { font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.55; }
+    .scoring-item .weight { display: inline-block; background: var(--green-pale); color: var(--green-deep); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-bottom: 6px; }
+    @media(max-width:480px) { .scoring-grid { grid-template-columns: 1fr; } }
+
+    .cta-block { background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%); border-radius: 16px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-block h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .cta-block p { font-size: 14px; color: rgba(255,255,255,0.82); margin-bottom: 20px; max-width: 460px; margin-left: auto; margin-right: auto; line-height: 1.65; }
+    .cta-block a { background: var(--cta); color: #fff; text-decoration: none; padding: 13px 26px; border-radius: 9px; font-size: 15px; font-weight: 800; display: inline-block; margin: 4px; transition: background 0.18s; }
+    .cta-block a:hover { background: #bf360c; }
+    .cta-block a.sec { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); }
+
+    footer { background: #0d1117; padding: 28px 24px; text-align: center; }
+    footer img { height: 40px; opacity: 0.8; margin-bottom: 10px; }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><img src="better-logo.png" alt="Better EPC Rating" /></a>
+  <div class="nav-links">
+    <a href="/epc-checker.html">EPC Checker</a>
+    <a href="/epc-regulations.html">EPC Regulations</a>
+    <a href="/how-to-improve-epc.html" class="active">Improve Your EPC</a>
+    <a href="/qualification.html" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Practical Guidance for Landlords</div>
+  <h1>How to Improve Your EPC Rating</h1>
+  <p>Which improvements deliver the most points, what they cost, the right order to do them — and the mistakes that cost landlords thousands.</p>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <h2>How EPC ratings are calculated</h2>
+    <p>EPC ratings are calculated using a methodology called RdSAP — Reduced Data Standard Assessment Procedure. An assessor visits your property, takes measurements and observations, and enters the data into software that models the property's energy performance.</p>
+    <p>The software outputs an energy efficiency score from 1 to 100. This score is then mapped to a rating band:</p>
+    <ul>
+      <li><strong>A:</strong> 92–100 (most efficient)</li>
+      <li><strong>B:</strong> 81–91</li>
+      <li><strong>C:</strong> 69–80</li>
+      <li><strong>D:</strong> 55–68</li>
+      <li><strong>E:</strong> 39–54</li>
+      <li><strong>F:</strong> 21–38</li>
+      <li><strong>G:</strong> 1–20 (least efficient)</li>
+    </ul>
+    <p>The score is based on a standardised occupancy model — it reflects the theoretical energy performance of the building, not your actual bills. This is why two identical properties with very different tenants get the same EPC score.</p>
+
+    <h3>What the assessor is looking at</h3>
+    <div class="scoring-grid">
+      <div class="scoring-item">
+        <div class="weight">Heating system</div>
+        <h4>Main heating type and efficiency</h4>
+        <p>The type, fuel, age, and efficiency of the boiler or heat source. One of the highest weighted factors in the calculation.</p>
+      </div>
+      <div class="scoring-item">
+        <div class="weight">Insulation</div>
+        <h4>Walls, roof and floor</h4>
+        <p>Wall construction type (solid, cavity, timber frame), roof insulation depth, and floor insulation where applicable.</p>
+      </div>
+      <div class="scoring-item">
+        <div class="weight">Windows</div>
+        <h4>Glazing type and age</h4>
+        <p>Single, double, or triple glazing. Age of the glazing also affects the assumed U-value (heat loss rate).</p>
+      </div>
+      <div class="scoring-item">
+        <div class="weight">Hot water</div>
+        <h4>Hot water cylinder and system</h4>
+        <p>Whether a cylinder is insulated, the type of hot water heating, and any immersion heater usage assumptions.</p>
+      </div>
+      <div class="scoring-item">
+        <div class="weight">Lighting</div>
+        <h4>Low-energy lighting percentage</h4>
+        <p>The proportion of fixed light fittings using LED or CFL bulbs. A minor but easy win.</p>
+      </div>
+      <div class="scoring-item">
+        <div class="weight">Renewables</div>
+        <h4>Solar panels, heat pumps</h4>
+        <p>Any renewable energy generation on the property. Can significantly boost the score but only after fabric improvements are made.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The most impactful improvements</h2>
+    <p>This table ranks common improvements by the typical score uplift they deliver, alongside estimated cost ranges. These are approximations — actual uplift depends on the property's current state and construction type.</p>
+
+    <table class="measures-table">
+      <tr>
+        <th>Improvement</th>
+        <th>Typical score uplift</th>
+        <th>Typical cost</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Solid wall insulation (external)</td>
+        <td class="impact-high">+15–25 points</td>
+        <td>£8,000–20,000</td>
+        <td>Highest impact for older solid-wall properties. Often cost-prohibitive but may be grant-funded.</td>
+      </tr>
+      <tr>
+        <td>Solid wall insulation (internal)</td>
+        <td class="impact-high">+12–20 points</td>
+        <td>£4,500–12,000</td>
+        <td>Less disruptive than external. Loses some floor area. Good option for terraced properties.</td>
+      </tr>
+      <tr>
+        <td>Air source heat pump</td>
+        <td class="impact-high">+8–18 points</td>
+        <td>£8,000–14,000</td>
+        <td>Only effective if the property is already well insulated. Don't fit before sorting fabric.</td>
+      </tr>
+      <tr>
+        <td>Cavity wall insulation</td>
+        <td class="impact-high">+4–10 points</td>
+        <td>£400–1,200</td>
+        <td>One of the best value measures available. Check suitability first — not all cavities can be filled.</td>
+      </tr>
+      <tr>
+        <td>Loft insulation (to 270mm)</td>
+        <td class="impact-med">+4–8 points</td>
+        <td>£300–600</td>
+        <td>Very cost-effective if the loft is accessible and currently uninsulated or under-insulated.</td>
+      </tr>
+      <tr>
+        <td>New A-rated gas boiler</td>
+        <td class="impact-med">+3–6 points</td>
+        <td>£2,000–4,000</td>
+        <td>Replacing an old G-rated boiler. Not worth doing if the property lacks insulation — you'll heat the walls.</td>
+      </tr>
+      <tr>
+        <td>Solar photovoltaic panels (3.5kW)</td>
+        <td class="impact-med">+5–10 points</td>
+        <td>£4,000–8,000</td>
+        <td>Good long-term investment. Only do this after fabric improvements — otherwise you're generating energy for a leaky building.</td>
+      </tr>
+      <tr>
+        <td>Room thermostat and TRVs</td>
+        <td class="impact-med">+2–4 points</td>
+        <td>£200–600</td>
+        <td>Often overlooked. Cheap and counts toward the score if controls are currently basic.</td>
+      </tr>
+      <tr>
+        <td>Hot water cylinder insulation</td>
+        <td class="impact-low">+1–3 points</td>
+        <td>£15–50</td>
+        <td>An extremely cheap improvement if the cylinder is uninsulated. Takes minutes.</td>
+      </tr>
+      <tr>
+        <td>Draught proofing</td>
+        <td class="impact-low">+1–2 points</td>
+        <td>£50–200</td>
+        <td>Useful for older properties with gaps around windows, doors, and chimneys.</td>
+      </tr>
+      <tr>
+        <td>LED lighting throughout</td>
+        <td class="impact-low">+1–2 points</td>
+        <td>£100–300</td>
+        <td>Easy wins if the property still has significant non-LED lighting. Assessors count the proportion of low-energy fittings.</td>
+      </tr>
+    </table>
+
+    <div class="callout-amber callout">
+      <p><strong>Important:</strong> Score uplifts are estimates based on typical properties. The actual impact on your specific property depends on its current condition, construction type, and what's already been done. A proper survey models this precisely — which is exactly why going straight to a contractor without one is a gamble.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The right order to make improvements</h2>
+    <p>This is where most landlords go wrong. The order of improvements matters because each measure you install changes what the next one needs to do. Installing a heat pump before insulating, for example, means you'll need a larger — and more expensive — system than if you'd sorted the fabric first.</p>
+    <p>The correct approach follows a consistent principle: <strong>reduce heat loss before improving heat generation.</strong></p>
+
+    <div class="order-steps">
+      <div class="order-step">
+        <div class="os-left"><div class="os-dot">1</div><div class="os-line"></div></div>
+        <div class="os-content">
+          <div class="os-title">Fabric first — insulation and airtightness</div>
+          <div class="os-desc">Loft insulation, cavity wall or solid wall insulation, draught proofing, floor insulation where accessible. Reducing how quickly the building loses heat is the foundation for everything else. There is no point improving your heating system if the heat immediately escapes through the walls and roof.</div>
+        </div>
+      </div>
+      <div class="order-step">
+        <div class="os-left"><div class="os-dot">2</div><div class="os-line"></div></div>
+        <div class="os-content">
+          <div class="os-title">Heating efficiency — boiler, controls, hot water</div>
+          <div class="os-desc">Once the fabric is addressed, heating improvements deliver their full effect. An A-rated boiler in an insulated property performs very differently from the same boiler in an uninsulated one. Heating controls — thermostat, TRVs, programmer — are often missed despite being cheap and impactful.</div>
+        </div>
+      </div>
+      <div class="order-step">
+        <div class="os-left"><div class="os-dot">3</div><div class="os-line"></div></div>
+        <div class="os-content">
+          <div class="os-title">Glazing — windows and doors</div>
+          <div class="os-desc">Double glazing is often assumed to be a high-priority improvement, but it ranks below insulation and heating in terms of score uplift per pound spent. Upgrade if the glazing is single-pane or very old, but don't expect double glazing alone to move a D to a C.</div>
+        </div>
+      </div>
+      <div class="order-step">
+        <div class="os-left"><div class="os-dot">4</div><div class="os-line"></div></div>
+        <div class="os-content">
+          <div class="os-title">Renewables — solar panels, heat pumps</div>
+          <div class="os-desc">Only after the above. Solar panels on a leaky building generate energy that largely heats the street. Heat pumps need a well-insulated property to work efficiently and to be correctly sized — a common and expensive mistake is fitting an oversized heat pump in an under-insulated property.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Mistakes that cost landlords money</h2>
+
+    <div class="mistake-list">
+      <div class="mistake-card">
+        <div class="mistake-num">1</div>
+        <div>
+          <div class="mistake-title">Going straight to a contractor without a survey</div>
+          <div class="mistake-desc">Contractors get paid to install things. They are not incentivised to tell you that a simpler, cheaper measure would achieve the same result. Without independent advice, you're relying on a salesperson to tell you what you need — which is not the same as knowing what you need.</div>
+        </div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-num">2</div>
+        <div>
+          <div class="mistake-title">Fitting a heat pump before insulating</div>
+          <div class="mistake-desc">Heat pumps work by running at lower flow temperatures for longer periods. In an uninsulated property, they struggle to maintain temperature and run inefficiently. You may also end up with a system that's spec'd too large — and oversized heat pumps cycle on and off, which reduces their lifespan and efficiency.</div>
+        </div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-num">3</div>
+        <div>
+          <div class="mistake-title">Installing cavity wall insulation in an unsuitable property</div>
+          <div class="mistake-desc">Cavity wall insulation is one of the best-value measures available — but only if the cavity is suitable. Properties in exposed locations, with defective brickwork, or with cavities that are too narrow can suffer damp problems after incorrect installation. A survey checks suitability before you commit.</div>
+        </div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-num">4</div>
+        <div>
+          <div class="mistake-title">Replacing a boiler that doesn't need replacing</div>
+          <div class="mistake-desc">A boiler replacement delivers a modest score uplift (3–6 points). If your property is currently D-rated and you spend £3,000 on a new boiler but the property needed loft insulation and heating controls instead, you may have spent three times as much for the same result — or missed the C boundary entirely.</div>
+        </div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-num">5</div>
+        <div>
+          <div class="mistake-title">Assuming double glazing is the main priority</div>
+          <div class="mistake-desc">Double glazing is visible and tangible — so landlords often assume it's important for EPC. It helps, but it delivers a smaller uplift per pound than insulation or heating controls. In most cases, loft insulation delivers double the score improvement at a fraction of the cost.</div>
+        </div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-num">6</div>
+        <div>
+          <div class="mistake-title">Waiting until 2029</div>
+          <div class="mistake-desc">The closer you get to the 2030 deadline, the more expensive everything becomes. Surveyor availability tightens, contractor lead times extend, and prices rise as demand spikes. Landlords who act in 2024–2026 consistently pay less than those who act in 2028–2029 for the same works.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What a professional survey tells you</h2>
+    <p>When a qualified energy assessor visits your property, they don't just produce an EPC certificate. With the right brief, they can model your property's response to specific improvements — showing you which combination of measures achieves EPC C at the lowest possible cost.</p>
+    <p>Our consultation service does exactly this. We visit the property, model it using specialist software, and produce a roadmap that shows:</p>
+    <ul>
+      <li>Your current EPC score and what's pulling it down</li>
+      <li>Which improvements will move the score most efficiently</li>
+      <li>The correct order to do them in</li>
+      <li>Indicative costs for each measure</li>
+      <li>The score after each improvement, so you can stop when you've reached C</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>The difference it makes:</strong> A D-rated landlord who books our survey and follows the roadmap typically reaches EPC C spending £800–1,800 on targeted works. The same landlord who goes straight to a contractor without the plan commonly spends £2,500–4,000 on a mix of necessary and unnecessary measures — and sometimes still doesn't reach C.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h3>Get your property's roadmap to EPC C</h3>
+    <p>£250 all-in. We visit, we model, we tell you exactly what to do and in what order. No guesswork, no unnecessary works.</p>
+    <a href="/qualification.html">Book a Free 15-Min Call →</a>
+    <a href="/epc-checker.html" class="sec">Check Your Rating First</a>
+  </div>
+
+</div>
+
+<footer>
+  <img src="better-logo.png" alt="Better EPC Rating" /><br/>
+  <p>© 2026 Better EPC Rating &nbsp;|&nbsp; <a href="/terms.html">Terms</a> &nbsp;·&nbsp; <a href="/">betterepcrating.co.uk</a></p>
+  <p style="margin-top:6px">Cost estimates are indicative. Actual costs depend on property size, location, and condition.</p>
+</footer>
+
+</body>
+</html>
