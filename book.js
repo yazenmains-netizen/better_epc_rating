@@ -26,11 +26,21 @@
   cal.setAttribute('data-url', url.toString());
   var w = document.createElement('script'); w.async = true; w.src = 'https://assets.calendly.com/assets/external/widget.js'; document.body.appendChild(w);
 
+  // Fallback (added 3 Oct 2026 during a Calendly outage that returned 504s for every booking page):
+  // if the widget sends no message within 12 s, offer the callback form with the same UTMs,
+  // so paid clicks are not lost. Any calendly.* message means the calendar loaded.
+  var calendlyAlive = false;
+  var fb = document.getElementById('fallback-link');
+  fb.href = '/qualification' + (window.location.search || '');
+  setTimeout(function () { if (!calendlyAlive) document.getElementById('fallback').style.display = 'block'; }, 12000);
+
   // The widget posts calendly.event_scheduled to this window when a booking completes.
   // That is the moment that counts as a Lead for the ad set. The invitee URI makes a stable
   // eventID so a reload cannot double-count.
   window.addEventListener('message', function (e) {
-    if (e.origin !== 'https://calendly.com' || !e.data || e.data.event !== 'calendly.event_scheduled') return;
+    if (e.origin !== 'https://calendly.com' || !e.data || typeof e.data.event !== 'string') return;
+    if (e.data.event.indexOf('calendly.') === 0) { calendlyAlive = true; document.getElementById('fallback').style.display = 'none'; }
+    if (e.data.event !== 'calendly.event_scheduled') return;
     var invitee = (e.data.payload && e.data.payload.invitee && e.data.payload.invitee.uri) || '';
     var id = 'cal_' + (invitee.split('/').pop() || Date.now());
     try { if (sessionStorage.getItem(id)) return; sessionStorage.setItem(id, '1'); } catch (_) {}
