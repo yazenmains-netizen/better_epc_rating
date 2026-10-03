@@ -28,7 +28,7 @@
 
   // Fallback (added 3 Oct 2026 during a Calendly outage that returned 504s for every booking page):
   // if the widget sends no message within 12 s, offer the callback form with the same UTMs,
-  // so paid clicks are not lost. Any calendly.* message means the calendar loaded.
+  // so paid clicks are not lost.
   var calendlyAlive = false;
   var fb = document.getElementById('fallback-link');
   fb.href = '/qualification' + (window.location.search || '');
@@ -39,7 +39,9 @@
   // eventID so a reload cannot double-count.
   window.addEventListener('message', function (e) {
     if (e.origin !== 'https://calendly.com' || !e.data || typeof e.data.event !== 'string') return;
-    if (e.data.event.indexOf('calendly.') === 0) { calendlyAlive = true; document.getElementById('fallback').style.display = 'none'; }
+    // Only a rendered booking calendar counts as alive: during the outage Calendly's error page still
+    // posted calendly.page_height, which hid the fallback while no calendar was showing.
+    if (/^calendly\.(event_type_viewed|date_and_time_selected|event_scheduled)$/.test(e.data.event)) { calendlyAlive = true; document.getElementById('fallback').style.display = 'none'; }
     if (e.data.event !== 'calendly.event_scheduled') return;
     var invitee = (e.data.payload && e.data.payload.invitee && e.data.payload.invitee.uri) || '';
     var id = 'cal_' + (invitee.split('/').pop() || Date.now());
