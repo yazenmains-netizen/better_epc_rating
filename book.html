@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Free EPC Call | Better EPC Rating</title>
+  <meta name="description" content="Book a free 15-minute call. We look at where your rental property stands and map your route to EPC C before you spend on upgrades." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #16512a; --green-mid: #2e7d32; --green-pale: #edf7ee; --green-border: #c5e8c7;
+      --amber: #ffd54f; --text: #111827; --text-muted: #6b7280; --border: #e5e7eb; --bg-off: #f9fafb;
+    }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); background: var(--bg-off); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    .header { background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; height: 84px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    .header img { height: 66px; }
+    .hero { background: linear-gradient(135deg, #16512a 0%, #2e7d32 100%); color: #fff; text-align: center; padding: 34px 20px 30px; }
+    .badge { display: inline-block; background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.25); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 900; line-height: 1.12; letter-spacing: -0.3px; margin-bottom: 10px; }
+    .hero h1 em { font-style: normal; color: var(--amber); }
+    .hero p { font-size: 16px; color: rgba(255,255,255,0.9); max-width: 540px; margin: 0 auto; }
+    .points { background: var(--green-pale); border-bottom: 1px solid var(--green-border); padding: 14px 20px; }
+    .points ul { list-style: none; max-width: 860px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; }
+    .points li { font-size: 13.5px; font-weight: 600; color: var(--green-deep); display: flex; align-items: center; gap: 7px; }
+    .points li::before { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--green-mid) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat; flex: none; }
+    .main { max-width: 1000px; margin: 0 auto; padding: 20px 12px 8px; }
+    .cal { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+    .calendly-inline-widget { min-width: 280px; height: 1060px; }
+    .done { display: none; background: #fff; border: 2px solid var(--green-mid); border-radius: 16px; padding: 28px 22px; text-align: center; margin-bottom: 16px; }
+    .done h2 { color: var(--green-deep); font-size: 24px; font-weight: 900; margin-bottom: 6px; }
+    .small { max-width: 760px; margin: 14px auto 32px; padding: 0 16px; text-align: center; font-size: 12.5px; color: var(--text-muted); }
+    .small a { color: var(--green-mid); }
+    @media (max-width: 640px) { .calendly-inline-widget { height: 1150px; } .header { height: 72px; } .header img { height: 56px; } }
+  </style>
+</head>
+<body>
+  <header class="header"><img src="better-logo.png" alt="Better EPC Rating" /></header>
+
+  <section class="hero">
+    <div class="badge">Free 15-minute phone call</div>
+    <h1>Book your free call to map<br/>your route to <em>EPC C</em></h1>
+    <p>Before you spend thousands on upgrades, find out what your rental property actually needs. Pick a time and we will call you.</p>
+  </section>
+
+  <div class="points"><ul>
+    <li>Where your property stands now</li>
+    <li>The planned 2030 standard explained</li>
+    <li>What is worth doing, in order</li>
+  </ul></div>
+
+  <main class="main">
+    <div class="done" id="booked">
+      <h2>You're booked in</h2>
+      <p>Check your email for the confirmation. We will call you at the time you chose.</p>
+    </div>
+    <div class="cal">
+      <!-- data-url is completed by book.js with the advert's UTM parameters before the widget loads. -->
+      <div class="calendly-inline-widget" id="cal" data-base="https://calendly.com/betterepcrating/15min"></div>
+    </div>
+  </main>
+
+  <p class="small">The call is free and there is no obligation. Our property-specific consultation, EPC lodgement and roadmap are a paid service, agreed before anything is booked. Improvement works are not included and no rating is guaranteed. England and Wales; the 2030 standard is planned and subject to legislation and exemptions. <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a></p>
+
+  <script src="book.js"></script>
+</body>
+</html>
