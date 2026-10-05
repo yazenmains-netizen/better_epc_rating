@@ -112,7 +112,7 @@
       } catch (err) {
         error.textContent = err.name === 'AbortError' ? 'This is taking longer than expected. Please retry. We will use the same reference to avoid a duplicate enquiry.' : err.message;
         error.hidden = false; error.focus();
-        button.disabled = false; button.textContent = 'Request my EPC callback';
+        button.disabled = false; button.textContent = 'Get my free call';
       } finally { clearTimeout(timer); busy = false; }
     });
   }

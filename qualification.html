@@ -467,7 +467,24 @@
     .submit-btn:hover { background: var(--cta-hover); box-shadow: 0 6px 20px rgba(230,81,0,0.45); }
     .submit-btn:active { transform: scale(0.99); }
 
-    .form-privacy {
+    .form-assurance {
+  list-style: none;
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: var(--green-deep);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.form-assurance li { position: relative; padding-left: 22px; margin-bottom: 6px; }
+.form-assurance li::before {
+  content: "\2713";
+  position: absolute; left: 0; top: 0;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--green-mid); color: white;
+  font-size: 10px; line-height: 16px; text-align: center;
+}
+.form-assurance a { color: inherit; }
+.form-privacy {
       text-align: center;
       font-size: 11px;
       color: #9ca3af;
@@ -537,10 +554,10 @@
   <div class="hero-strip">
     <div class="urgency-badge">
       <span class="badge-dot"></span>
-      Plan for the 2030 EPC standard
+      Free 15-minute call
     </div>
-    <h1>Is Your Rental Property<br/>Ready for the <em>EPC C Deadline?</em></h1>
-    <p>Understand which improvements are worth making and plan a cost-effective route towards EPC C.</p>
+    <h1>Rental stuck on a D or E?<br/>Get your route to <em>EPC C</em></h1>
+    <p>We find the most cost-effective way to get your property to EPC C, and guarantee the C once the work is done, or your fee back.</p>
   </div>
 
   <!-- ── MAIN ── -->
@@ -548,9 +565,9 @@
 
     <!-- LEFT: Qualifying Form -->
     <div class="form-card" id="qualify-form">
-      <div class="form-card-badge">Expert Consultation</div>
-      <h3>Request Your EPC Roadmap Consultation</h3>
-      <p class="form-card-sub">Leave your details and Yazen will call to understand your property, discuss your options and explain how we can help. No payment is taken through this form.</p>
+      <div class="form-card-badge">Free call</div>
+      <h3>Get your free EPC call</h3>
+      <p class="form-card-sub">Leave your details and Yazen will call you. The call is free, with no obligation.</p>
 
       <form id="qualifyForm" >
         <div class="form-group">
@@ -558,17 +575,17 @@
           <input type="text" id="q_name" name="name" placeholder="John Smith" required autocomplete="name" />
         </div>
         <div class="form-group">
-          <label for="q_email">Email Address</label>
-          <input type="email" id="q_email" name="email" placeholder="john@example.com" required autocomplete="email" />
-        </div>
-        <div class="form-group">
           <label for="q_phone">Phone Number</label>
           <input type="tel" id="q_phone" name="phone" placeholder="07700 900 000" required autocomplete="tel" />
         </div>
         <div class="form-group">
-          <label for="q_postcode">Property Postcode</label>
+          <label for="q_email">Email Address</label>
+          <input type="email" id="q_email" name="email" placeholder="john@example.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="q_postcode">Property Postcode <span style="text-transform:none;font-weight:500;color:var(--text-muted)">(optional)</span></label>
           <div class="postcode-row">
-            <input type="text" id="q_postcode" name="postcode" placeholder="SW1A 1AA" required autocomplete="postal-code" style="text-transform:uppercase" />
+            <input type="text" id="q_postcode" name="postcode" placeholder="SW1A 1AA" autocomplete="postal-code" style="text-transform:uppercase" />
             <button type="button" class="find-btn" id="find-address">Find address</button>
           </div>
           <p class="addr-error" id="addr-error" role="status"></p>
@@ -583,7 +600,12 @@
         </div>
         <div aria-hidden="true" style="position:absolute;left:-10000px"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
         <p id="form-error" role="alert" tabindex="-1" hidden style="color:#991b1b;background:#fff1f2;padding:12px;margin-bottom:12px"></p>
-        <button type="submit" class="submit-btn">Request my EPC callback</button>
+        <button type="submit" class="submit-btn">Get my free call</button>
+        <ul class="form-assurance">
+          <li>C guaranteed once the work is done, or your fee back (<a href="/terms.html">terms</a>)</li>
+          <li>The most cost-effective route, no unnecessary upgrades</li>
+          <li>EPC lodged on the government register</li>
+        </ul>
       </form>
 
       <div class="success-state" id="qualifySuccess">
@@ -610,7 +632,7 @@
       <div class="form-card" style="margin-top:24px">
         <h3>What is included</h3>
         <ul style="padding-left:20px;line-height:2;margin:16px 0"><li>A consultation about your property and EPC</li><li>A full roadmap towards EPC C</li><li>EPC lodgement</li></ul>
-        <p>Improvement works are not included. The rating achievable depends on your property and the works completed.</p>
+        <p>Improvement works are not included. EPC C guaranteed or your fee back when every recommended improvement is completed; see <a href="/terms.html">terms</a>.</p>
       </div>
       <p style="margin-top:24px;font-size:13px">The government has set out a planned higher standard from 1 October 2030, with exemptions and transition arrangements. <a href="https://www.gov.uk/government/consultations/improving-the-energy-performance-of-privately-rented-homes-2025-update/outcome/improving-the-energy-performance-of-privately-rented-homes-government-response-html" target="_blank" rel="noopener">Read the government response</a>.</p>
     </div>
@@ -640,6 +662,10 @@
       <div class="trust-pill">
         <div class="check-circle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         No Unnecessary Upgrades
+      </div>
+      <div class="trust-pill">
+        <div class="check-circle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        C Guaranteed or Your Fee Back
       </div>
       <div class="trust-pill">
         <div class="check-circle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
