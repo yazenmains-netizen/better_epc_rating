@@ -1208,7 +1208,7 @@
             </div>
           </div>
           <div class="checker-cta-strip">
-            <p>Get the cheapest route to C — a £250 survey covers everything.</p>
+            <p>Get a full roadmap towards EPC C, with a property-specific consultation and EPC lodgement. Speak to us about your property and options.</p>
             <a href="#get-roadmap">Book a Free Call →</a>
           </div>
         </div>
@@ -1601,47 +1601,42 @@
       f_postcode: 'postcode'
     };
 
-    function handleSubmit(e, formId, successId) {
+    async function handleSubmit(e, formId, successId) {
       e.preventDefault();
       var form = document.getElementById(formId);
-      var btn  = form.querySelector('button[type="submit"]');
-      var raw  = {};
-
-      form.querySelectorAll('input, select').forEach(function(el) {
-        if (el.id) raw[el.id] = el.value;
-      });
-
-      var payload = { source: formId };
-      Object.keys(raw).forEach(function(key) {
-        payload[FIELD_MAP[key] || key] = raw[key];
-      });
-
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-
-      fetch(WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(payload)
-      })
-      .then(function() {
-        form.style.display = 'none';
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn.disabled) return;
+      var label = btn.textContent;
+      var error = form.querySelector('[role="alert"]');
+      if (!error) { error = document.createElement('p'); error.setAttribute('role','alert'); error.style.color='#991b1b'; form.appendChild(error); }
+      error.textContent = '';
+      var raw = {};
+      form.querySelectorAll('input, select').forEach(function(el) { if(el.id) raw[el.id]=el.value; });
+      if (!form.dataset.leadId) form.dataset.leadId = crypto.randomUUID();
+      var payload = {source:formId,lead_id:form.dataset.leadId,landing_page:location.origin+location.pathname};
+      Object.keys(raw).forEach(function(key) { payload[FIELD_MAP[key] || key]=raw[key]; });
+      var query = new URLSearchParams(location.search);
+      ['utm_source','utm_medium','utm_campaign','utm_content','campaign_id','adset_id','ad_id','adset_name','ad_name','placement'].forEach(function(key) { payload[key]=query.get(key)||''; });
+      btn.disabled=true; btn.textContent='Saving your enquiry...';
+      try {
+        var response=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
+        var result=await response.json();
+        if(!response.ok || result.status!=='ok') throw new Error(result.detail || 'We could not save your enquiry. Please try again.');
+        form.style.display='none';
         document.getElementById(successId).classList.add('show');
-      })
-      .catch(function() {
-        form.style.display = 'none';
-        document.getElementById(successId).classList.add('show');
-      });
+      } catch(err) {
+        error.textContent=err.message; btn.disabled=false; btn.textContent=label;
+      }
     }
 
     // ─── EPC CHECKER ───
     var IDX_BANDS = ['A','B','C','D','E','F','G'];
     var IDX_SCORES = {A:'92–100',B:'81–91',C:'69–80',D:'55–68',E:'39–54',F:'21–38',G:'1–20'};
     var IDX_COST = {
-      D: { typical:'£500–£2,500', us:'From £250', desc:'Most D-rated properties need just 1–2 low-cost measures to reach C.' },
-      E: { typical:'£2,500–£6,000', us:'From £250', desc:'Usually needs insulation + one heating improvement, in the right order.' },
-      F: { typical:'£6,000–£12,000', us:'From £250', desc:'Significant gap — the order of works matters a great deal here.' },
-      G: { typical:'£10,000–£20,000', us:'From £250', desc:'Our survey identifies grants and the cheapest sequence of improvements.' },
+      D: { typical:'£500–£2,500', us:'Property-specific plan', desc:'Most D-rated properties need just 1–2 low-cost measures to reach C.' },
+      E: { typical:'£2,500–£6,000', us:'Property-specific plan', desc:'Usually needs insulation + one heating improvement, in the right order.' },
+      F: { typical:'£6,000–£12,000', us:'Property-specific plan', desc:'Significant gap — the order of works matters a great deal here.' },
+      G: { typical:'£10,000–£20,000', us:'Property-specific plan', desc:'Our survey identifies grants and the cheapest sequence of improvements.' },
     };
     var idxProperties = [];
 
