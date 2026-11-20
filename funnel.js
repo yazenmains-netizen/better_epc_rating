@@ -18,6 +18,19 @@
   }
   enablePixel();
 
+  // 20 Nov 2026: the handler sleeps when idle and took about 9 seconds to wake on submit.
+  // Wake it when the page loads and again as the visitor works through the form, so the
+  // save is near instant by the time they press the button. Failure here is ignored:
+  // the real submission still reports its own errors.
+  var lastWarm = 0;
+  function warm() {
+    if (Date.now() - lastWarm < 45000) return;
+    lastWarm = Date.now();
+    try { fetch(endpoint + '/warm', {mode: 'no-cors', keepalive: true}).catch(function () {}); } catch (_) {}
+  }
+  warm();
+  document.addEventListener('focusin', warm);
+
   // Postcode search: Vercel function api/lookup-postcode.js proxies Ideal Postcodes.
   // Address is optional, so a failed or empty lookup never blocks the enquiry.
   var postcodeInput = document.getElementById('q_postcode');
