@@ -9,6 +9,8 @@
   function save(key, value) { try { sessionStorage.setItem(key, value); } catch (_) {} }
   // 3 Oct 2026: the opt-in checkbox was removed on Yazen's instruction (form friction),
   // so the pixel loads for every visitor. Privacy page discloses it.
+  // 20 Nov 2026: qualification.html starts the pixel inline in its head (faster PageView, see the
+  // comment there), so this only runs on pages without that snippet, such as thank-you.html.
   function enablePixel() {
     if (window.fbq) return;
     var f = window.fbq = function () { f.callMethod ? f.callMethod.apply(f, arguments) : f.queue.push(arguments); };

@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 20 Nov 2026: Meta Pixel starts here, first thing in the head, because this is the ad landing
+       page and Meta only counts a landing page view once PageView fires. Started from funnel.js
+       at the end of the body it fired about 5s in on slow 4G, so visitors who left before then
+       saw the page but were never counted. funnel.js skips its own copy when fbq already exists. -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+    s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '808613045653651'); fbq('track', 'PageView');
+  </script>
   <title>EPC Roadmap Consultation | Better EPC Rating</title>
   <meta name="description" content="Find out exactly what your rental property needs to reach EPC C by 2030. Expert guidance on the most cost-effective route to compliance." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
